@@ -1,27 +1,32 @@
 Global:
   device: gpu
-  epoch_num: &epoch_num 1000
+  epoch_num: &epoch_num 100
   log_smooth_window: 20
   print_batch_step: 100
-  output_dir: ./output/det_repsvtr_horizontal_800*1280
+  output_dir: ./output/det_timm_mobilenetv4_real_960
   save_epoch_step: [400, 25]
   eval_batch_step:
   - 0
   - 1000
   cal_metric_during_train: false
   checkpoints:
-  pretrained_model: /scratch/penghao/OpenOCR/output/det_repsvtr_db/best.pth
+  pretrained_model: /scratch/penghao/OpenOCR/output/det_timm_mobilenetv4_real_960/best.pth
   save_inference_dir: null
   use_tensorboard: false
   infer_img: /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
   save_res_path: ./checkpoints/det_db/predicts_db.txt
   distributed: true
   model_type: det
+  use_executorch: True
+  executorch_model_path: /scratch/penghao/OpenOCR/output/det_timm_mobilenetv4_real_960/export_det/mobilenetv4_gpu_fp32.pte
 
 Architecture:
   algorithm: DB_mobile
   Backbone:
-    name: RepSVTR_det
+    name: TIMMWrapper
+    model_name: mobilenetv4_conv_small_050.e3000_r224_in1k
+    pretrained: True
+    out_indices: [1, 2, 3, 4]   # <= was [1,2,3,4]
   Neck:
     name: RSEFPN
     out_channels: 96
@@ -50,8 +55,8 @@ LRScheduler:
 
 PostProcess:
   name: DBPostProcess
-  thresh: 0.3
-  box_thresh: 0.6
+  thresh: 0.6
+  box_thresh: 0.7
   max_candidates: 1000
   unclip_ratio: 1.5
   score_mode: 'slow'
@@ -125,7 +130,7 @@ Train:
   loader:
     shuffle: true
     drop_last: false
-    batch_size_per_card: 28
+    batch_size_per_card: 108
     num_workers: 8
 
 Eval:
@@ -140,9 +145,9 @@ Eval:
         channel_first: false
     - DetLabelEncode: null
     - DetResizeForTest:
-        # image_shape: [1280, 1280]
+        image_shape: [960, 960]
         # keep_ratio: True
-        # padding: True
+        padding: True
         limit_side_len: 1280
         limit_type: max
     - NormalizeImage:

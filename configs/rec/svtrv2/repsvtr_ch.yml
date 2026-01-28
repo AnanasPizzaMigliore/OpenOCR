@@ -1,18 +1,18 @@
 Global:
-  device: gpu
-  epoch_num: 100
+  device: cpu
+  epoch_num: 10000
   log_smooth_window: 20
   print_batch_step: 10
-  output_dir: ./output/rec/ch/repsvtr_ch/
+  output_dir: ./output/rec/repsvtr_test/
   save_epoch_step: [150, 10]
   # evaluation is run every 2000 iterations
-  eval_epoch_step: [0, 1]
+  eval_epoch_step: [0, 10]
   eval_batch_step: [0, 2000]
   cal_metric_during_train: True
-  pretrained_model: ./openocr_repsvtr_ch.pth
+  pretrained_model: /scratch/penghao/OpenOCR/output/rec/repsvtr_test/best.pth
   checkpoints:
   use_tensorboard: false
-  infer_img:
+  infer_img: /scratch/penghao/datasets/Date-Real/eval/images
   # for data or label process
   character_dict_path: &character_dict_path ./tools/utils/ppocr_keys_v1.txt
   max_text_length: &max_text_length 25
@@ -20,6 +20,8 @@ Global:
   save_res_path: ./output/rec/u14m_filter/predicts_svtrv2_ctc.txt
   use_amp: True
   project_name: resvtr_ctc_nosgm_ds
+  use_executorch: True
+  executorch_model_path: /scratch/penghao/OpenOCR/output/rec/repsvtr_test/export_rec/repvit_cpu_int8.pte
 
 Optimizer:
   name: Adam
@@ -63,9 +65,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ../ic15_data/
+    data_dir: /scratch/penghao/datasets/Date-Real/train/images
     label_file_list:
-      - ../ic15_data/rec_gt_train.txt
+      - /scratch/penghao/datasets/Date-Real/train/labels.txt
     transforms:
       - DecodeImagePIL: # load image
           img_mode: RGB
@@ -83,14 +85,14 @@ Train:
     shuffle: True
     batch_size_per_card: 256
     drop_last: True
-    num_workers: 4
+    num_workers: 8
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: ../ic15_data/
+    data_dir: /scratch/penghao/datasets/Date-Real/eval/images
     label_file_list:
-      - ../ic15_data/rec_gt_test.txt
+      - /scratch/penghao/datasets/Date-Real/eval/labels_fixed.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -98,16 +100,16 @@ Eval:
           character_dict_path: *character_dict_path
           use_space_char: *use_space_char
           max_text_length: *max_text_length
-      - RecDynamicResize:
-          image_shape: [48, 320]
-          padding: False
-      # - SVTRResize:
-      #     image_shape: [3, 48, 320]
-      #     padding: True
+      #- RecDynamicResize:
+      #    image_shape: [48, 320]
+      #    padding: False
+      - SVTRResize:
+           image_shape: [3, 48, 320]
+           padding: True
       - KeepKeys:
           keep_keys: ['image', 'label', 'length']
   loader:
     shuffle: False
     drop_last: False
     batch_size_per_card: 1
-    num_workers: 4
+    num_workers: 8

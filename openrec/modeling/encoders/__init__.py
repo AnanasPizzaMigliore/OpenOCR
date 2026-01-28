@@ -25,6 +25,9 @@ name_to_module = {
     'AutoSTREncoder': '.autostr_encoder',
     'NRTREncoder': '.nrtr_encoder',
     'RepSVTREncoder': '.repvit',
+    'TIMMTrans': '.timm_trans',
+    'TIMMEncoder': '.timm',
+    'CRNN': '.crnn',
 }
 
 

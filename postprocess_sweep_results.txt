@@ -1,0 +1,1386 @@
+
+>>> Running thresh=0.3, box_thresh=0.6
+[2025/11/14 04:54:34] opendet INFO: ----------- Config -----------
+[2025/11/14 04:54:34] opendet INFO: Architecture : 
+[2025/11/14 04:54:34] opendet INFO:     Backbone : 
+[2025/11/14 04:54:34] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 04:54:34] opendet INFO:         name : TIMMWrapper
+[2025/11/14 04:54:34] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 04:54:34] opendet INFO:         pretrained : True
+[2025/11/14 04:54:34] opendet INFO:     Head : 
+[2025/11/14 04:54:34] opendet INFO:         k : 50
+[2025/11/14 04:54:34] opendet INFO:         name : DBHead
+[2025/11/14 04:54:34] opendet INFO:     Neck : 
+[2025/11/14 04:54:34] opendet INFO:         name : RSEFPN
+[2025/11/14 04:54:34] opendet INFO:         out_channels : 96
+[2025/11/14 04:54:34] opendet INFO:         shortcut : True
+[2025/11/14 04:54:34] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 04:54:34] opendet INFO: Eval : 
+[2025/11/14 04:54:34] opendet INFO:     dataset : 
+[2025/11/14 04:54:34] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 04:54:34] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 04:54:34] opendet INFO:         name : SimpleDataSet
+[2025/11/14 04:54:34] opendet INFO:         transforms : 
+[2025/11/14 04:54:34] opendet INFO:             DecodeImage : 
+[2025/11/14 04:54:34] opendet INFO:                 channel_first : False
+[2025/11/14 04:54:34] opendet INFO:                 img_mode : BGR
+[2025/11/14 04:54:34] opendet INFO:             DetLabelEncode : None
+[2025/11/14 04:54:34] opendet INFO:             DetResizeForTest : 
+[2025/11/14 04:54:34] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 04:54:34] opendet INFO:                 limit_type : max
+[2025/11/14 04:54:34] opendet INFO:             NormalizeImage : 
+[2025/11/14 04:54:34] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 04:54:34] opendet INFO:                 order : hwc
+[2025/11/14 04:54:34] opendet INFO:                 scale : 1./255.
+[2025/11/14 04:54:34] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 04:54:34] opendet INFO:             ToCHWImage : None
+[2025/11/14 04:54:34] opendet INFO:             KeepKeys : 
+[2025/11/14 04:54:34] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 04:54:34] opendet INFO:     loader : 
+[2025/11/14 04:54:34] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 04:54:34] opendet INFO:         drop_last : False
+[2025/11/14 04:54:34] opendet INFO:         num_workers : 8
+[2025/11/14 04:54:34] opendet INFO:         shuffle : False
+[2025/11/14 04:54:34] opendet INFO: Global : 
+[2025/11/14 04:54:34] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 04:54:34] opendet INFO:     checkpoints : None
+[2025/11/14 04:54:34] opendet INFO:     device : gpu
+[2025/11/14 04:54:34] opendet INFO:     distributed : False
+[2025/11/14 04:54:34] opendet INFO:     epoch_num : 1000
+[2025/11/14 04:54:34] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 04:54:34] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 04:54:34] opendet INFO:     log_smooth_window : 20
+[2025/11/14 04:54:34] opendet INFO:     model_type : det
+[2025/11/14 04:54:34] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 04:54:34] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 04:54:34] opendet INFO:     print_batch_step : 100
+[2025/11/14 04:54:34] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 04:54:34] opendet INFO:     save_inference_dir : None
+[2025/11/14 04:54:34] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 04:54:34] opendet INFO:     use_tensorboard : False
+[2025/11/14 04:54:34] opendet INFO: LRScheduler : 
+[2025/11/14 04:54:34] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 04:54:34] opendet INFO:     warmup_epoch : 2
+[2025/11/14 04:54:34] opendet INFO: Loss : 
+[2025/11/14 04:54:34] opendet INFO:     alpha : 5
+[2025/11/14 04:54:34] opendet INFO:     balance_loss : True
+[2025/11/14 04:54:34] opendet INFO:     beta : 10
+[2025/11/14 04:54:34] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 04:54:34] opendet INFO:     name : DBLoss
+[2025/11/14 04:54:34] opendet INFO:     ohem_ratio : 3
+[2025/11/14 04:54:34] opendet INFO: Metric : 
+[2025/11/14 04:54:34] opendet INFO:     main_indicator : hmean
+[2025/11/14 04:54:34] opendet INFO:     name : DetMetric
+[2025/11/14 04:54:34] opendet INFO: Optimizer : 
+[2025/11/14 04:54:34] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 04:54:34] opendet INFO:     lr : 0.001
+[2025/11/14 04:54:34] opendet INFO:     name : Adam
+[2025/11/14 04:54:34] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 04:54:34] opendet INFO: PostProcess : 
+[2025/11/14 04:54:34] opendet INFO:     box_thresh : 0.6
+[2025/11/14 04:54:34] opendet INFO:     max_candidates : 1000
+[2025/11/14 04:54:34] opendet INFO:     name : DBPostProcess
+[2025/11/14 04:54:34] opendet INFO:     score_mode : slow
+[2025/11/14 04:54:34] opendet INFO:     thresh : 0.3
+[2025/11/14 04:54:34] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 04:54:34] opendet INFO: Train : 
+[2025/11/14 04:54:34] opendet INFO:     dataset : 
+[2025/11/14 04:54:34] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 04:54:34] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 04:54:34] opendet INFO:         name : SimpleDataSet
+[2025/11/14 04:54:34] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 04:54:34] opendet INFO:         transforms : 
+[2025/11/14 04:54:34] opendet INFO:             DecodeImage : 
+[2025/11/14 04:54:34] opendet INFO:                 channel_first : False
+[2025/11/14 04:54:34] opendet INFO:                 img_mode : BGR
+[2025/11/14 04:54:34] opendet INFO:             DetLabelEncode : None
+[2025/11/14 04:54:34] opendet INFO:             CopyPaste : None
+[2025/11/14 04:54:34] opendet INFO:             IaaAugment : 
+[2025/11/14 04:54:34] opendet INFO:                 augmenter_args : 
+[2025/11/14 04:54:34] opendet INFO:                     args : 
+[2025/11/14 04:54:34] opendet INFO:                         p : 0.5
+[2025/11/14 04:54:34] opendet INFO:                     type : Fliplr
+[2025/11/14 04:54:34] opendet INFO:                     args : 
+[2025/11/14 04:54:34] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 04:54:34] opendet INFO:                     type : Affine
+[2025/11/14 04:54:34] opendet INFO:                     args : 
+[2025/11/14 04:54:34] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 04:54:34] opendet INFO:                     type : Resize
+[2025/11/14 04:54:34] opendet INFO:             EastRandomCropData : 
+[2025/11/14 04:54:34] opendet INFO:                 keep_ratio : True
+[2025/11/14 04:54:34] opendet INFO:                 max_tries : 50
+[2025/11/14 04:54:34] opendet INFO:                 size : [800, 800]
+[2025/11/14 04:54:34] opendet INFO:             MakeBorderMap : 
+[2025/11/14 04:54:34] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 04:54:34] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 04:54:34] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 04:54:34] opendet INFO:                 total_epoch : 1000
+[2025/11/14 04:54:34] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 04:54:34] opendet INFO:                 min_text_size : 3
+[2025/11/14 04:54:34] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 04:54:34] opendet INFO:                 total_epoch : 1000
+[2025/11/14 04:54:34] opendet INFO:             NormalizeImage : 
+[2025/11/14 04:54:34] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 04:54:34] opendet INFO:                 order : hwc
+[2025/11/14 04:54:34] opendet INFO:                 scale : 1./255.
+[2025/11/14 04:54:34] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 04:54:34] opendet INFO:             ToCHWImage : None
+[2025/11/14 04:54:34] opendet INFO:             KeepKeys : 
+[2025/11/14 04:54:34] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 04:54:34] opendet INFO:     loader : 
+[2025/11/14 04:54:34] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 04:54:34] opendet INFO:         drop_last : False
+[2025/11/14 04:54:34] opendet INFO:         num_workers : 8
+[2025/11/14 04:54:34] opendet INFO:         shuffle : True
+[2025/11/14 04:54:34] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 04:54:34] opendet INFO: filename : timm_real_repvit
+[2025/11/14 04:54:34] opendet INFO: local_rank : None
+[2025/11/14 04:54:34] opendet INFO: profiler_options : None
+[2025/11/14 04:54:34] opendet INFO: ---------------------------------------------
+[2025/11/14 04:54:34] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 04:54:34] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 04:54:34] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 04:54:35] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 04:54:35] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 04:54:35] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 04:54:36] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 04:54:36] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 04:54:36] opendet INFO: metric in ckpt ***************
+[2025/11/14 04:57:00] opendet INFO: metric eval ***************
+[2025/11/14 04:57:00] opendet INFO: precision:0.8051948051948052
+[2025/11/14 04:57:00] opendet INFO: recall:0.9323308270676691
+[2025/11/14 04:57:00] opendet INFO: hmean:0.8641114982578397
+[2025/11/14 04:57:00] opendet INFO: fps:5.115072669411667
+
+>>> Running thresh=0.3, box_thresh=0.7
+[2025/11/14 04:57:13] opendet INFO: ----------- Config -----------
+[2025/11/14 04:57:13] opendet INFO: Architecture : 
+[2025/11/14 04:57:13] opendet INFO:     Backbone : 
+[2025/11/14 04:57:13] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 04:57:13] opendet INFO:         name : TIMMWrapper
+[2025/11/14 04:57:13] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 04:57:13] opendet INFO:         pretrained : True
+[2025/11/14 04:57:13] opendet INFO:     Head : 
+[2025/11/14 04:57:13] opendet INFO:         k : 50
+[2025/11/14 04:57:13] opendet INFO:         name : DBHead
+[2025/11/14 04:57:13] opendet INFO:     Neck : 
+[2025/11/14 04:57:13] opendet INFO:         name : RSEFPN
+[2025/11/14 04:57:13] opendet INFO:         out_channels : 96
+[2025/11/14 04:57:13] opendet INFO:         shortcut : True
+[2025/11/14 04:57:13] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 04:57:13] opendet INFO: Eval : 
+[2025/11/14 04:57:13] opendet INFO:     dataset : 
+[2025/11/14 04:57:13] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 04:57:13] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 04:57:13] opendet INFO:         name : SimpleDataSet
+[2025/11/14 04:57:13] opendet INFO:         transforms : 
+[2025/11/14 04:57:13] opendet INFO:             DecodeImage : 
+[2025/11/14 04:57:13] opendet INFO:                 channel_first : False
+[2025/11/14 04:57:13] opendet INFO:                 img_mode : BGR
+[2025/11/14 04:57:13] opendet INFO:             DetLabelEncode : None
+[2025/11/14 04:57:13] opendet INFO:             DetResizeForTest : 
+[2025/11/14 04:57:13] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 04:57:13] opendet INFO:                 limit_type : max
+[2025/11/14 04:57:13] opendet INFO:             NormalizeImage : 
+[2025/11/14 04:57:13] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 04:57:13] opendet INFO:                 order : hwc
+[2025/11/14 04:57:13] opendet INFO:                 scale : 1./255.
+[2025/11/14 04:57:13] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 04:57:13] opendet INFO:             ToCHWImage : None
+[2025/11/14 04:57:13] opendet INFO:             KeepKeys : 
+[2025/11/14 04:57:13] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 04:57:13] opendet INFO:     loader : 
+[2025/11/14 04:57:13] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 04:57:13] opendet INFO:         drop_last : False
+[2025/11/14 04:57:13] opendet INFO:         num_workers : 8
+[2025/11/14 04:57:13] opendet INFO:         shuffle : False
+[2025/11/14 04:57:13] opendet INFO: Global : 
+[2025/11/14 04:57:13] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 04:57:13] opendet INFO:     checkpoints : None
+[2025/11/14 04:57:13] opendet INFO:     device : gpu
+[2025/11/14 04:57:13] opendet INFO:     distributed : False
+[2025/11/14 04:57:13] opendet INFO:     epoch_num : 1000
+[2025/11/14 04:57:13] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 04:57:13] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 04:57:13] opendet INFO:     log_smooth_window : 20
+[2025/11/14 04:57:13] opendet INFO:     model_type : det
+[2025/11/14 04:57:13] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 04:57:13] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 04:57:13] opendet INFO:     print_batch_step : 100
+[2025/11/14 04:57:13] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 04:57:13] opendet INFO:     save_inference_dir : None
+[2025/11/14 04:57:13] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 04:57:13] opendet INFO:     use_tensorboard : False
+[2025/11/14 04:57:13] opendet INFO: LRScheduler : 
+[2025/11/14 04:57:13] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 04:57:13] opendet INFO:     warmup_epoch : 2
+[2025/11/14 04:57:13] opendet INFO: Loss : 
+[2025/11/14 04:57:13] opendet INFO:     alpha : 5
+[2025/11/14 04:57:13] opendet INFO:     balance_loss : True
+[2025/11/14 04:57:13] opendet INFO:     beta : 10
+[2025/11/14 04:57:13] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 04:57:13] opendet INFO:     name : DBLoss
+[2025/11/14 04:57:13] opendet INFO:     ohem_ratio : 3
+[2025/11/14 04:57:13] opendet INFO: Metric : 
+[2025/11/14 04:57:13] opendet INFO:     main_indicator : hmean
+[2025/11/14 04:57:13] opendet INFO:     name : DetMetric
+[2025/11/14 04:57:13] opendet INFO: Optimizer : 
+[2025/11/14 04:57:13] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 04:57:13] opendet INFO:     lr : 0.001
+[2025/11/14 04:57:13] opendet INFO:     name : Adam
+[2025/11/14 04:57:13] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 04:57:13] opendet INFO: PostProcess : 
+[2025/11/14 04:57:13] opendet INFO:     box_thresh : 0.7
+[2025/11/14 04:57:13] opendet INFO:     max_candidates : 1000
+[2025/11/14 04:57:13] opendet INFO:     name : DBPostProcess
+[2025/11/14 04:57:13] opendet INFO:     score_mode : slow
+[2025/11/14 04:57:13] opendet INFO:     thresh : 0.3
+[2025/11/14 04:57:13] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 04:57:13] opendet INFO: Train : 
+[2025/11/14 04:57:13] opendet INFO:     dataset : 
+[2025/11/14 04:57:13] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 04:57:13] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 04:57:13] opendet INFO:         name : SimpleDataSet
+[2025/11/14 04:57:13] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 04:57:13] opendet INFO:         transforms : 
+[2025/11/14 04:57:13] opendet INFO:             DecodeImage : 
+[2025/11/14 04:57:13] opendet INFO:                 channel_first : False
+[2025/11/14 04:57:13] opendet INFO:                 img_mode : BGR
+[2025/11/14 04:57:13] opendet INFO:             DetLabelEncode : None
+[2025/11/14 04:57:13] opendet INFO:             CopyPaste : None
+[2025/11/14 04:57:13] opendet INFO:             IaaAugment : 
+[2025/11/14 04:57:13] opendet INFO:                 augmenter_args : 
+[2025/11/14 04:57:13] opendet INFO:                     args : 
+[2025/11/14 04:57:13] opendet INFO:                         p : 0.5
+[2025/11/14 04:57:13] opendet INFO:                     type : Fliplr
+[2025/11/14 04:57:13] opendet INFO:                     args : 
+[2025/11/14 04:57:13] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 04:57:13] opendet INFO:                     type : Affine
+[2025/11/14 04:57:13] opendet INFO:                     args : 
+[2025/11/14 04:57:13] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 04:57:13] opendet INFO:                     type : Resize
+[2025/11/14 04:57:13] opendet INFO:             EastRandomCropData : 
+[2025/11/14 04:57:13] opendet INFO:                 keep_ratio : True
+[2025/11/14 04:57:13] opendet INFO:                 max_tries : 50
+[2025/11/14 04:57:13] opendet INFO:                 size : [800, 800]
+[2025/11/14 04:57:13] opendet INFO:             MakeBorderMap : 
+[2025/11/14 04:57:13] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 04:57:13] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 04:57:13] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 04:57:13] opendet INFO:                 total_epoch : 1000
+[2025/11/14 04:57:13] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 04:57:13] opendet INFO:                 min_text_size : 3
+[2025/11/14 04:57:13] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 04:57:13] opendet INFO:                 total_epoch : 1000
+[2025/11/14 04:57:13] opendet INFO:             NormalizeImage : 
+[2025/11/14 04:57:13] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 04:57:13] opendet INFO:                 order : hwc
+[2025/11/14 04:57:13] opendet INFO:                 scale : 1./255.
+[2025/11/14 04:57:13] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 04:57:13] opendet INFO:             ToCHWImage : None
+[2025/11/14 04:57:13] opendet INFO:             KeepKeys : 
+[2025/11/14 04:57:13] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 04:57:13] opendet INFO:     loader : 
+[2025/11/14 04:57:13] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 04:57:13] opendet INFO:         drop_last : False
+[2025/11/14 04:57:13] opendet INFO:         num_workers : 8
+[2025/11/14 04:57:13] opendet INFO:         shuffle : True
+[2025/11/14 04:57:13] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 04:57:13] opendet INFO: filename : timm_real_repvit
+[2025/11/14 04:57:13] opendet INFO: local_rank : None
+[2025/11/14 04:57:13] opendet INFO: profiler_options : None
+[2025/11/14 04:57:13] opendet INFO: ---------------------------------------------
+[2025/11/14 04:57:13] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 04:57:13] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 04:57:13] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 04:57:14] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 04:57:14] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 04:57:14] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 04:57:15] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 04:57:15] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 04:57:15] opendet INFO: metric in ckpt ***************
+[2025/11/14 04:59:40] opendet INFO: metric eval ***************
+[2025/11/14 04:59:40] opendet INFO: precision:0.8051948051948052
+[2025/11/14 04:59:40] opendet INFO: recall:0.9323308270676691
+[2025/11/14 04:59:40] opendet INFO: hmean:0.8641114982578397
+[2025/11/14 04:59:40] opendet INFO: fps:5.077833812239135
+
+>>> Running thresh=0.3, box_thresh=0.8
+[2025/11/14 04:59:54] opendet INFO: ----------- Config -----------
+[2025/11/14 04:59:54] opendet INFO: Architecture : 
+[2025/11/14 04:59:54] opendet INFO:     Backbone : 
+[2025/11/14 04:59:54] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 04:59:54] opendet INFO:         name : TIMMWrapper
+[2025/11/14 04:59:54] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 04:59:54] opendet INFO:         pretrained : True
+[2025/11/14 04:59:54] opendet INFO:     Head : 
+[2025/11/14 04:59:54] opendet INFO:         k : 50
+[2025/11/14 04:59:54] opendet INFO:         name : DBHead
+[2025/11/14 04:59:54] opendet INFO:     Neck : 
+[2025/11/14 04:59:54] opendet INFO:         name : RSEFPN
+[2025/11/14 04:59:54] opendet INFO:         out_channels : 96
+[2025/11/14 04:59:54] opendet INFO:         shortcut : True
+[2025/11/14 04:59:54] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 04:59:54] opendet INFO: Eval : 
+[2025/11/14 04:59:54] opendet INFO:     dataset : 
+[2025/11/14 04:59:54] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 04:59:54] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 04:59:54] opendet INFO:         name : SimpleDataSet
+[2025/11/14 04:59:54] opendet INFO:         transforms : 
+[2025/11/14 04:59:54] opendet INFO:             DecodeImage : 
+[2025/11/14 04:59:54] opendet INFO:                 channel_first : False
+[2025/11/14 04:59:54] opendet INFO:                 img_mode : BGR
+[2025/11/14 04:59:54] opendet INFO:             DetLabelEncode : None
+[2025/11/14 04:59:54] opendet INFO:             DetResizeForTest : 
+[2025/11/14 04:59:54] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 04:59:54] opendet INFO:                 limit_type : max
+[2025/11/14 04:59:54] opendet INFO:             NormalizeImage : 
+[2025/11/14 04:59:54] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 04:59:54] opendet INFO:                 order : hwc
+[2025/11/14 04:59:54] opendet INFO:                 scale : 1./255.
+[2025/11/14 04:59:54] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 04:59:54] opendet INFO:             ToCHWImage : None
+[2025/11/14 04:59:54] opendet INFO:             KeepKeys : 
+[2025/11/14 04:59:54] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 04:59:54] opendet INFO:     loader : 
+[2025/11/14 04:59:54] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 04:59:54] opendet INFO:         drop_last : False
+[2025/11/14 04:59:54] opendet INFO:         num_workers : 8
+[2025/11/14 04:59:54] opendet INFO:         shuffle : False
+[2025/11/14 04:59:54] opendet INFO: Global : 
+[2025/11/14 04:59:54] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 04:59:54] opendet INFO:     checkpoints : None
+[2025/11/14 04:59:54] opendet INFO:     device : gpu
+[2025/11/14 04:59:54] opendet INFO:     distributed : False
+[2025/11/14 04:59:54] opendet INFO:     epoch_num : 1000
+[2025/11/14 04:59:54] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 04:59:54] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 04:59:54] opendet INFO:     log_smooth_window : 20
+[2025/11/14 04:59:54] opendet INFO:     model_type : det
+[2025/11/14 04:59:54] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 04:59:54] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 04:59:54] opendet INFO:     print_batch_step : 100
+[2025/11/14 04:59:54] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 04:59:54] opendet INFO:     save_inference_dir : None
+[2025/11/14 04:59:54] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 04:59:54] opendet INFO:     use_tensorboard : False
+[2025/11/14 04:59:54] opendet INFO: LRScheduler : 
+[2025/11/14 04:59:54] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 04:59:54] opendet INFO:     warmup_epoch : 2
+[2025/11/14 04:59:54] opendet INFO: Loss : 
+[2025/11/14 04:59:54] opendet INFO:     alpha : 5
+[2025/11/14 04:59:54] opendet INFO:     balance_loss : True
+[2025/11/14 04:59:54] opendet INFO:     beta : 10
+[2025/11/14 04:59:54] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 04:59:54] opendet INFO:     name : DBLoss
+[2025/11/14 04:59:54] opendet INFO:     ohem_ratio : 3
+[2025/11/14 04:59:54] opendet INFO: Metric : 
+[2025/11/14 04:59:54] opendet INFO:     main_indicator : hmean
+[2025/11/14 04:59:54] opendet INFO:     name : DetMetric
+[2025/11/14 04:59:54] opendet INFO: Optimizer : 
+[2025/11/14 04:59:54] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 04:59:54] opendet INFO:     lr : 0.001
+[2025/11/14 04:59:54] opendet INFO:     name : Adam
+[2025/11/14 04:59:54] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 04:59:54] opendet INFO: PostProcess : 
+[2025/11/14 04:59:54] opendet INFO:     box_thresh : 0.8
+[2025/11/14 04:59:54] opendet INFO:     max_candidates : 1000
+[2025/11/14 04:59:54] opendet INFO:     name : DBPostProcess
+[2025/11/14 04:59:54] opendet INFO:     score_mode : slow
+[2025/11/14 04:59:54] opendet INFO:     thresh : 0.3
+[2025/11/14 04:59:54] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 04:59:54] opendet INFO: Train : 
+[2025/11/14 04:59:54] opendet INFO:     dataset : 
+[2025/11/14 04:59:54] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 04:59:54] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 04:59:54] opendet INFO:         name : SimpleDataSet
+[2025/11/14 04:59:54] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 04:59:54] opendet INFO:         transforms : 
+[2025/11/14 04:59:54] opendet INFO:             DecodeImage : 
+[2025/11/14 04:59:54] opendet INFO:                 channel_first : False
+[2025/11/14 04:59:54] opendet INFO:                 img_mode : BGR
+[2025/11/14 04:59:54] opendet INFO:             DetLabelEncode : None
+[2025/11/14 04:59:54] opendet INFO:             CopyPaste : None
+[2025/11/14 04:59:54] opendet INFO:             IaaAugment : 
+[2025/11/14 04:59:54] opendet INFO:                 augmenter_args : 
+[2025/11/14 04:59:54] opendet INFO:                     args : 
+[2025/11/14 04:59:54] opendet INFO:                         p : 0.5
+[2025/11/14 04:59:54] opendet INFO:                     type : Fliplr
+[2025/11/14 04:59:54] opendet INFO:                     args : 
+[2025/11/14 04:59:54] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 04:59:54] opendet INFO:                     type : Affine
+[2025/11/14 04:59:54] opendet INFO:                     args : 
+[2025/11/14 04:59:54] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 04:59:54] opendet INFO:                     type : Resize
+[2025/11/14 04:59:54] opendet INFO:             EastRandomCropData : 
+[2025/11/14 04:59:54] opendet INFO:                 keep_ratio : True
+[2025/11/14 04:59:54] opendet INFO:                 max_tries : 50
+[2025/11/14 04:59:54] opendet INFO:                 size : [800, 800]
+[2025/11/14 04:59:54] opendet INFO:             MakeBorderMap : 
+[2025/11/14 04:59:54] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 04:59:54] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 04:59:54] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 04:59:54] opendet INFO:                 total_epoch : 1000
+[2025/11/14 04:59:54] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 04:59:54] opendet INFO:                 min_text_size : 3
+[2025/11/14 04:59:54] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 04:59:54] opendet INFO:                 total_epoch : 1000
+[2025/11/14 04:59:54] opendet INFO:             NormalizeImage : 
+[2025/11/14 04:59:54] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 04:59:54] opendet INFO:                 order : hwc
+[2025/11/14 04:59:54] opendet INFO:                 scale : 1./255.
+[2025/11/14 04:59:54] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 04:59:54] opendet INFO:             ToCHWImage : None
+[2025/11/14 04:59:54] opendet INFO:             KeepKeys : 
+[2025/11/14 04:59:54] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 04:59:54] opendet INFO:     loader : 
+[2025/11/14 04:59:54] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 04:59:54] opendet INFO:         drop_last : False
+[2025/11/14 04:59:54] opendet INFO:         num_workers : 8
+[2025/11/14 04:59:54] opendet INFO:         shuffle : True
+[2025/11/14 04:59:54] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 04:59:54] opendet INFO: filename : timm_real_repvit
+[2025/11/14 04:59:54] opendet INFO: local_rank : None
+[2025/11/14 04:59:54] opendet INFO: profiler_options : None
+[2025/11/14 04:59:54] opendet INFO: ---------------------------------------------
+[2025/11/14 04:59:54] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 04:59:54] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 04:59:54] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 04:59:55] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 04:59:55] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 04:59:55] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 04:59:56] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 04:59:56] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 04:59:56] opendet INFO: metric in ckpt ***************
+[2025/11/14 05:02:21] opendet INFO: metric eval ***************
+[2025/11/14 05:02:21] opendet INFO: precision:0.8051948051948052
+[2025/11/14 05:02:21] opendet INFO: recall:0.9323308270676691
+[2025/11/14 05:02:21] opendet INFO: hmean:0.8641114982578397
+[2025/11/14 05:02:21] opendet INFO: fps:5.0732507590130815
+
+>>> Running thresh=0.4, box_thresh=0.6
+[2025/11/14 05:02:34] opendet INFO: ----------- Config -----------
+[2025/11/14 05:02:34] opendet INFO: Architecture : 
+[2025/11/14 05:02:34] opendet INFO:     Backbone : 
+[2025/11/14 05:02:34] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 05:02:34] opendet INFO:         name : TIMMWrapper
+[2025/11/14 05:02:34] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 05:02:34] opendet INFO:         pretrained : True
+[2025/11/14 05:02:34] opendet INFO:     Head : 
+[2025/11/14 05:02:34] opendet INFO:         k : 50
+[2025/11/14 05:02:34] opendet INFO:         name : DBHead
+[2025/11/14 05:02:34] opendet INFO:     Neck : 
+[2025/11/14 05:02:34] opendet INFO:         name : RSEFPN
+[2025/11/14 05:02:34] opendet INFO:         out_channels : 96
+[2025/11/14 05:02:34] opendet INFO:         shortcut : True
+[2025/11/14 05:02:34] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 05:02:34] opendet INFO: Eval : 
+[2025/11/14 05:02:34] opendet INFO:     dataset : 
+[2025/11/14 05:02:34] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 05:02:34] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:02:34] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:02:34] opendet INFO:         transforms : 
+[2025/11/14 05:02:34] opendet INFO:             DecodeImage : 
+[2025/11/14 05:02:34] opendet INFO:                 channel_first : False
+[2025/11/14 05:02:34] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:02:34] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:02:34] opendet INFO:             DetResizeForTest : 
+[2025/11/14 05:02:34] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 05:02:34] opendet INFO:                 limit_type : max
+[2025/11/14 05:02:34] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:02:34] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:02:34] opendet INFO:                 order : hwc
+[2025/11/14 05:02:34] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:02:34] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:02:34] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:02:34] opendet INFO:             KeepKeys : 
+[2025/11/14 05:02:34] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 05:02:34] opendet INFO:     loader : 
+[2025/11/14 05:02:34] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 05:02:34] opendet INFO:         drop_last : False
+[2025/11/14 05:02:34] opendet INFO:         num_workers : 8
+[2025/11/14 05:02:34] opendet INFO:         shuffle : False
+[2025/11/14 05:02:34] opendet INFO: Global : 
+[2025/11/14 05:02:34] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 05:02:34] opendet INFO:     checkpoints : None
+[2025/11/14 05:02:34] opendet INFO:     device : gpu
+[2025/11/14 05:02:34] opendet INFO:     distributed : False
+[2025/11/14 05:02:34] opendet INFO:     epoch_num : 1000
+[2025/11/14 05:02:34] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 05:02:34] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 05:02:34] opendet INFO:     log_smooth_window : 20
+[2025/11/14 05:02:34] opendet INFO:     model_type : det
+[2025/11/14 05:02:34] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 05:02:34] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:02:34] opendet INFO:     print_batch_step : 100
+[2025/11/14 05:02:34] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 05:02:34] opendet INFO:     save_inference_dir : None
+[2025/11/14 05:02:34] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 05:02:34] opendet INFO:     use_tensorboard : False
+[2025/11/14 05:02:34] opendet INFO: LRScheduler : 
+[2025/11/14 05:02:34] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 05:02:34] opendet INFO:     warmup_epoch : 2
+[2025/11/14 05:02:34] opendet INFO: Loss : 
+[2025/11/14 05:02:34] opendet INFO:     alpha : 5
+[2025/11/14 05:02:34] opendet INFO:     balance_loss : True
+[2025/11/14 05:02:34] opendet INFO:     beta : 10
+[2025/11/14 05:02:34] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 05:02:34] opendet INFO:     name : DBLoss
+[2025/11/14 05:02:34] opendet INFO:     ohem_ratio : 3
+[2025/11/14 05:02:34] opendet INFO: Metric : 
+[2025/11/14 05:02:34] opendet INFO:     main_indicator : hmean
+[2025/11/14 05:02:34] opendet INFO:     name : DetMetric
+[2025/11/14 05:02:34] opendet INFO: Optimizer : 
+[2025/11/14 05:02:34] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 05:02:34] opendet INFO:     lr : 0.001
+[2025/11/14 05:02:34] opendet INFO:     name : Adam
+[2025/11/14 05:02:34] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 05:02:34] opendet INFO: PostProcess : 
+[2025/11/14 05:02:34] opendet INFO:     box_thresh : 0.6
+[2025/11/14 05:02:34] opendet INFO:     max_candidates : 1000
+[2025/11/14 05:02:34] opendet INFO:     name : DBPostProcess
+[2025/11/14 05:02:34] opendet INFO:     score_mode : slow
+[2025/11/14 05:02:34] opendet INFO:     thresh : 0.4
+[2025/11/14 05:02:34] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 05:02:34] opendet INFO: Train : 
+[2025/11/14 05:02:34] opendet INFO:     dataset : 
+[2025/11/14 05:02:34] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 05:02:34] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 05:02:34] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:02:34] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 05:02:34] opendet INFO:         transforms : 
+[2025/11/14 05:02:34] opendet INFO:             DecodeImage : 
+[2025/11/14 05:02:34] opendet INFO:                 channel_first : False
+[2025/11/14 05:02:34] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:02:34] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:02:34] opendet INFO:             CopyPaste : None
+[2025/11/14 05:02:34] opendet INFO:             IaaAugment : 
+[2025/11/14 05:02:34] opendet INFO:                 augmenter_args : 
+[2025/11/14 05:02:34] opendet INFO:                     args : 
+[2025/11/14 05:02:34] opendet INFO:                         p : 0.5
+[2025/11/14 05:02:34] opendet INFO:                     type : Fliplr
+[2025/11/14 05:02:34] opendet INFO:                     args : 
+[2025/11/14 05:02:34] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 05:02:34] opendet INFO:                     type : Affine
+[2025/11/14 05:02:34] opendet INFO:                     args : 
+[2025/11/14 05:02:34] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 05:02:34] opendet INFO:                     type : Resize
+[2025/11/14 05:02:34] opendet INFO:             EastRandomCropData : 
+[2025/11/14 05:02:34] opendet INFO:                 keep_ratio : True
+[2025/11/14 05:02:34] opendet INFO:                 max_tries : 50
+[2025/11/14 05:02:34] opendet INFO:                 size : [800, 800]
+[2025/11/14 05:02:34] opendet INFO:             MakeBorderMap : 
+[2025/11/14 05:02:34] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 05:02:34] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 05:02:34] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 05:02:34] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:02:34] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 05:02:34] opendet INFO:                 min_text_size : 3
+[2025/11/14 05:02:34] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 05:02:34] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:02:34] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:02:34] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:02:34] opendet INFO:                 order : hwc
+[2025/11/14 05:02:34] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:02:34] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:02:34] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:02:34] opendet INFO:             KeepKeys : 
+[2025/11/14 05:02:34] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 05:02:34] opendet INFO:     loader : 
+[2025/11/14 05:02:34] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 05:02:34] opendet INFO:         drop_last : False
+[2025/11/14 05:02:34] opendet INFO:         num_workers : 8
+[2025/11/14 05:02:34] opendet INFO:         shuffle : True
+[2025/11/14 05:02:34] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 05:02:34] opendet INFO: filename : timm_real_repvit
+[2025/11/14 05:02:34] opendet INFO: local_rank : None
+[2025/11/14 05:02:34] opendet INFO: profiler_options : None
+[2025/11/14 05:02:34] opendet INFO: ---------------------------------------------
+[2025/11/14 05:02:35] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:02:35] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 05:02:35] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 05:02:35] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 05:02:35] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 05:02:36] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 05:02:36] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:02:36] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 05:02:36] opendet INFO: metric in ckpt ***************
+[2025/11/14 05:05:01] opendet INFO: metric eval ***************
+[2025/11/14 05:05:01] opendet INFO: precision:0.8041504539559015
+[2025/11/14 05:05:01] opendet INFO: recall:0.9323308270676691
+[2025/11/14 05:05:01] opendet INFO: hmean:0.8635097493036211
+[2025/11/14 05:05:01] opendet INFO: fps:5.091085830857314
+
+>>> Running thresh=0.4, box_thresh=0.7
+[2025/11/14 05:05:15] opendet INFO: ----------- Config -----------
+[2025/11/14 05:05:15] opendet INFO: Architecture : 
+[2025/11/14 05:05:15] opendet INFO:     Backbone : 
+[2025/11/14 05:05:15] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 05:05:15] opendet INFO:         name : TIMMWrapper
+[2025/11/14 05:05:15] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 05:05:15] opendet INFO:         pretrained : True
+[2025/11/14 05:05:15] opendet INFO:     Head : 
+[2025/11/14 05:05:15] opendet INFO:         k : 50
+[2025/11/14 05:05:15] opendet INFO:         name : DBHead
+[2025/11/14 05:05:15] opendet INFO:     Neck : 
+[2025/11/14 05:05:15] opendet INFO:         name : RSEFPN
+[2025/11/14 05:05:15] opendet INFO:         out_channels : 96
+[2025/11/14 05:05:15] opendet INFO:         shortcut : True
+[2025/11/14 05:05:15] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 05:05:15] opendet INFO: Eval : 
+[2025/11/14 05:05:15] opendet INFO:     dataset : 
+[2025/11/14 05:05:15] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 05:05:15] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:05:15] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:05:15] opendet INFO:         transforms : 
+[2025/11/14 05:05:15] opendet INFO:             DecodeImage : 
+[2025/11/14 05:05:15] opendet INFO:                 channel_first : False
+[2025/11/14 05:05:15] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:05:15] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:05:15] opendet INFO:             DetResizeForTest : 
+[2025/11/14 05:05:15] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 05:05:15] opendet INFO:                 limit_type : max
+[2025/11/14 05:05:15] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:05:15] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:05:15] opendet INFO:                 order : hwc
+[2025/11/14 05:05:15] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:05:15] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:05:15] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:05:15] opendet INFO:             KeepKeys : 
+[2025/11/14 05:05:15] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 05:05:15] opendet INFO:     loader : 
+[2025/11/14 05:05:15] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 05:05:15] opendet INFO:         drop_last : False
+[2025/11/14 05:05:15] opendet INFO:         num_workers : 8
+[2025/11/14 05:05:15] opendet INFO:         shuffle : False
+[2025/11/14 05:05:15] opendet INFO: Global : 
+[2025/11/14 05:05:15] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 05:05:15] opendet INFO:     checkpoints : None
+[2025/11/14 05:05:15] opendet INFO:     device : gpu
+[2025/11/14 05:05:15] opendet INFO:     distributed : False
+[2025/11/14 05:05:15] opendet INFO:     epoch_num : 1000
+[2025/11/14 05:05:15] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 05:05:15] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 05:05:15] opendet INFO:     log_smooth_window : 20
+[2025/11/14 05:05:15] opendet INFO:     model_type : det
+[2025/11/14 05:05:15] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 05:05:15] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:05:15] opendet INFO:     print_batch_step : 100
+[2025/11/14 05:05:15] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 05:05:15] opendet INFO:     save_inference_dir : None
+[2025/11/14 05:05:15] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 05:05:15] opendet INFO:     use_tensorboard : False
+[2025/11/14 05:05:15] opendet INFO: LRScheduler : 
+[2025/11/14 05:05:15] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 05:05:15] opendet INFO:     warmup_epoch : 2
+[2025/11/14 05:05:15] opendet INFO: Loss : 
+[2025/11/14 05:05:15] opendet INFO:     alpha : 5
+[2025/11/14 05:05:15] opendet INFO:     balance_loss : True
+[2025/11/14 05:05:15] opendet INFO:     beta : 10
+[2025/11/14 05:05:15] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 05:05:15] opendet INFO:     name : DBLoss
+[2025/11/14 05:05:15] opendet INFO:     ohem_ratio : 3
+[2025/11/14 05:05:15] opendet INFO: Metric : 
+[2025/11/14 05:05:15] opendet INFO:     main_indicator : hmean
+[2025/11/14 05:05:15] opendet INFO:     name : DetMetric
+[2025/11/14 05:05:15] opendet INFO: Optimizer : 
+[2025/11/14 05:05:15] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 05:05:15] opendet INFO:     lr : 0.001
+[2025/11/14 05:05:15] opendet INFO:     name : Adam
+[2025/11/14 05:05:15] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 05:05:15] opendet INFO: PostProcess : 
+[2025/11/14 05:05:15] opendet INFO:     box_thresh : 0.7
+[2025/11/14 05:05:15] opendet INFO:     max_candidates : 1000
+[2025/11/14 05:05:15] opendet INFO:     name : DBPostProcess
+[2025/11/14 05:05:15] opendet INFO:     score_mode : slow
+[2025/11/14 05:05:15] opendet INFO:     thresh : 0.4
+[2025/11/14 05:05:15] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 05:05:15] opendet INFO: Train : 
+[2025/11/14 05:05:15] opendet INFO:     dataset : 
+[2025/11/14 05:05:15] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 05:05:15] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 05:05:15] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:05:15] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 05:05:15] opendet INFO:         transforms : 
+[2025/11/14 05:05:15] opendet INFO:             DecodeImage : 
+[2025/11/14 05:05:15] opendet INFO:                 channel_first : False
+[2025/11/14 05:05:15] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:05:15] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:05:15] opendet INFO:             CopyPaste : None
+[2025/11/14 05:05:15] opendet INFO:             IaaAugment : 
+[2025/11/14 05:05:15] opendet INFO:                 augmenter_args : 
+[2025/11/14 05:05:15] opendet INFO:                     args : 
+[2025/11/14 05:05:15] opendet INFO:                         p : 0.5
+[2025/11/14 05:05:15] opendet INFO:                     type : Fliplr
+[2025/11/14 05:05:15] opendet INFO:                     args : 
+[2025/11/14 05:05:15] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 05:05:15] opendet INFO:                     type : Affine
+[2025/11/14 05:05:15] opendet INFO:                     args : 
+[2025/11/14 05:05:15] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 05:05:15] opendet INFO:                     type : Resize
+[2025/11/14 05:05:15] opendet INFO:             EastRandomCropData : 
+[2025/11/14 05:05:15] opendet INFO:                 keep_ratio : True
+[2025/11/14 05:05:15] opendet INFO:                 max_tries : 50
+[2025/11/14 05:05:15] opendet INFO:                 size : [800, 800]
+[2025/11/14 05:05:15] opendet INFO:             MakeBorderMap : 
+[2025/11/14 05:05:15] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 05:05:15] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 05:05:15] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 05:05:15] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:05:15] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 05:05:15] opendet INFO:                 min_text_size : 3
+[2025/11/14 05:05:15] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 05:05:15] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:05:15] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:05:15] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:05:15] opendet INFO:                 order : hwc
+[2025/11/14 05:05:15] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:05:15] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:05:15] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:05:15] opendet INFO:             KeepKeys : 
+[2025/11/14 05:05:15] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 05:05:15] opendet INFO:     loader : 
+[2025/11/14 05:05:15] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 05:05:15] opendet INFO:         drop_last : False
+[2025/11/14 05:05:15] opendet INFO:         num_workers : 8
+[2025/11/14 05:05:15] opendet INFO:         shuffle : True
+[2025/11/14 05:05:15] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 05:05:15] opendet INFO: filename : timm_real_repvit
+[2025/11/14 05:05:15] opendet INFO: local_rank : None
+[2025/11/14 05:05:15] opendet INFO: profiler_options : None
+[2025/11/14 05:05:15] opendet INFO: ---------------------------------------------
+[2025/11/14 05:05:15] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:05:15] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 05:05:15] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 05:05:15] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 05:05:15] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 05:05:16] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 05:05:16] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:05:16] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 05:05:16] opendet INFO: metric in ckpt ***************
+[2025/11/14 05:07:42] opendet INFO: metric eval ***************
+[2025/11/14 05:07:42] opendet INFO: precision:0.8041504539559015
+[2025/11/14 05:07:42] opendet INFO: recall:0.9323308270676691
+[2025/11/14 05:07:42] opendet INFO: hmean:0.8635097493036211
+[2025/11/14 05:07:42] opendet INFO: fps:5.067486076973739
+
+>>> Running thresh=0.4, box_thresh=0.8
+[2025/11/14 05:07:55] opendet INFO: ----------- Config -----------
+[2025/11/14 05:07:55] opendet INFO: Architecture : 
+[2025/11/14 05:07:55] opendet INFO:     Backbone : 
+[2025/11/14 05:07:55] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 05:07:55] opendet INFO:         name : TIMMWrapper
+[2025/11/14 05:07:55] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 05:07:55] opendet INFO:         pretrained : True
+[2025/11/14 05:07:55] opendet INFO:     Head : 
+[2025/11/14 05:07:55] opendet INFO:         k : 50
+[2025/11/14 05:07:55] opendet INFO:         name : DBHead
+[2025/11/14 05:07:55] opendet INFO:     Neck : 
+[2025/11/14 05:07:55] opendet INFO:         name : RSEFPN
+[2025/11/14 05:07:55] opendet INFO:         out_channels : 96
+[2025/11/14 05:07:55] opendet INFO:         shortcut : True
+[2025/11/14 05:07:55] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 05:07:55] opendet INFO: Eval : 
+[2025/11/14 05:07:55] opendet INFO:     dataset : 
+[2025/11/14 05:07:55] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 05:07:55] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:07:55] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:07:55] opendet INFO:         transforms : 
+[2025/11/14 05:07:55] opendet INFO:             DecodeImage : 
+[2025/11/14 05:07:55] opendet INFO:                 channel_first : False
+[2025/11/14 05:07:55] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:07:55] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:07:55] opendet INFO:             DetResizeForTest : 
+[2025/11/14 05:07:55] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 05:07:55] opendet INFO:                 limit_type : max
+[2025/11/14 05:07:55] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:07:55] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:07:55] opendet INFO:                 order : hwc
+[2025/11/14 05:07:55] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:07:55] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:07:55] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:07:55] opendet INFO:             KeepKeys : 
+[2025/11/14 05:07:55] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 05:07:55] opendet INFO:     loader : 
+[2025/11/14 05:07:55] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 05:07:55] opendet INFO:         drop_last : False
+[2025/11/14 05:07:55] opendet INFO:         num_workers : 8
+[2025/11/14 05:07:55] opendet INFO:         shuffle : False
+[2025/11/14 05:07:55] opendet INFO: Global : 
+[2025/11/14 05:07:55] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 05:07:55] opendet INFO:     checkpoints : None
+[2025/11/14 05:07:55] opendet INFO:     device : gpu
+[2025/11/14 05:07:55] opendet INFO:     distributed : False
+[2025/11/14 05:07:55] opendet INFO:     epoch_num : 1000
+[2025/11/14 05:07:55] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 05:07:55] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 05:07:55] opendet INFO:     log_smooth_window : 20
+[2025/11/14 05:07:55] opendet INFO:     model_type : det
+[2025/11/14 05:07:55] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 05:07:55] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:07:55] opendet INFO:     print_batch_step : 100
+[2025/11/14 05:07:55] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 05:07:55] opendet INFO:     save_inference_dir : None
+[2025/11/14 05:07:55] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 05:07:55] opendet INFO:     use_tensorboard : False
+[2025/11/14 05:07:55] opendet INFO: LRScheduler : 
+[2025/11/14 05:07:55] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 05:07:55] opendet INFO:     warmup_epoch : 2
+[2025/11/14 05:07:55] opendet INFO: Loss : 
+[2025/11/14 05:07:55] opendet INFO:     alpha : 5
+[2025/11/14 05:07:55] opendet INFO:     balance_loss : True
+[2025/11/14 05:07:55] opendet INFO:     beta : 10
+[2025/11/14 05:07:55] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 05:07:55] opendet INFO:     name : DBLoss
+[2025/11/14 05:07:55] opendet INFO:     ohem_ratio : 3
+[2025/11/14 05:07:55] opendet INFO: Metric : 
+[2025/11/14 05:07:55] opendet INFO:     main_indicator : hmean
+[2025/11/14 05:07:55] opendet INFO:     name : DetMetric
+[2025/11/14 05:07:55] opendet INFO: Optimizer : 
+[2025/11/14 05:07:55] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 05:07:55] opendet INFO:     lr : 0.001
+[2025/11/14 05:07:55] opendet INFO:     name : Adam
+[2025/11/14 05:07:55] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 05:07:55] opendet INFO: PostProcess : 
+[2025/11/14 05:07:55] opendet INFO:     box_thresh : 0.8
+[2025/11/14 05:07:55] opendet INFO:     max_candidates : 1000
+[2025/11/14 05:07:55] opendet INFO:     name : DBPostProcess
+[2025/11/14 05:07:55] opendet INFO:     score_mode : slow
+[2025/11/14 05:07:55] opendet INFO:     thresh : 0.4
+[2025/11/14 05:07:55] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 05:07:55] opendet INFO: Train : 
+[2025/11/14 05:07:55] opendet INFO:     dataset : 
+[2025/11/14 05:07:55] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 05:07:55] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 05:07:55] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:07:55] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 05:07:55] opendet INFO:         transforms : 
+[2025/11/14 05:07:55] opendet INFO:             DecodeImage : 
+[2025/11/14 05:07:55] opendet INFO:                 channel_first : False
+[2025/11/14 05:07:55] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:07:55] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:07:55] opendet INFO:             CopyPaste : None
+[2025/11/14 05:07:55] opendet INFO:             IaaAugment : 
+[2025/11/14 05:07:55] opendet INFO:                 augmenter_args : 
+[2025/11/14 05:07:55] opendet INFO:                     args : 
+[2025/11/14 05:07:55] opendet INFO:                         p : 0.5
+[2025/11/14 05:07:55] opendet INFO:                     type : Fliplr
+[2025/11/14 05:07:55] opendet INFO:                     args : 
+[2025/11/14 05:07:55] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 05:07:55] opendet INFO:                     type : Affine
+[2025/11/14 05:07:55] opendet INFO:                     args : 
+[2025/11/14 05:07:55] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 05:07:55] opendet INFO:                     type : Resize
+[2025/11/14 05:07:55] opendet INFO:             EastRandomCropData : 
+[2025/11/14 05:07:55] opendet INFO:                 keep_ratio : True
+[2025/11/14 05:07:55] opendet INFO:                 max_tries : 50
+[2025/11/14 05:07:55] opendet INFO:                 size : [800, 800]
+[2025/11/14 05:07:55] opendet INFO:             MakeBorderMap : 
+[2025/11/14 05:07:55] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 05:07:55] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 05:07:55] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 05:07:55] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:07:55] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 05:07:55] opendet INFO:                 min_text_size : 3
+[2025/11/14 05:07:55] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 05:07:55] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:07:55] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:07:55] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:07:55] opendet INFO:                 order : hwc
+[2025/11/14 05:07:55] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:07:55] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:07:55] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:07:55] opendet INFO:             KeepKeys : 
+[2025/11/14 05:07:55] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 05:07:55] opendet INFO:     loader : 
+[2025/11/14 05:07:55] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 05:07:55] opendet INFO:         drop_last : False
+[2025/11/14 05:07:55] opendet INFO:         num_workers : 8
+[2025/11/14 05:07:55] opendet INFO:         shuffle : True
+[2025/11/14 05:07:55] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 05:07:55] opendet INFO: filename : timm_real_repvit
+[2025/11/14 05:07:55] opendet INFO: local_rank : None
+[2025/11/14 05:07:55] opendet INFO: profiler_options : None
+[2025/11/14 05:07:55] opendet INFO: ---------------------------------------------
+[2025/11/14 05:07:55] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:07:55] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 05:07:55] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 05:07:56] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 05:07:56] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 05:07:56] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 05:07:57] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:07:57] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 05:07:57] opendet INFO: metric in ckpt ***************
+[2025/11/14 05:10:23] opendet INFO: metric eval ***************
+[2025/11/14 05:10:23] opendet INFO: precision:0.8041504539559015
+[2025/11/14 05:10:23] opendet INFO: recall:0.9323308270676691
+[2025/11/14 05:10:23] opendet INFO: hmean:0.8635097493036211
+[2025/11/14 05:10:23] opendet INFO: fps:5.062269601219545
+
+>>> Running thresh=0.5, box_thresh=0.6
+[2025/11/14 05:10:37] opendet INFO: ----------- Config -----------
+[2025/11/14 05:10:37] opendet INFO: Architecture : 
+[2025/11/14 05:10:37] opendet INFO:     Backbone : 
+[2025/11/14 05:10:37] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 05:10:37] opendet INFO:         name : TIMMWrapper
+[2025/11/14 05:10:37] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 05:10:37] opendet INFO:         pretrained : True
+[2025/11/14 05:10:37] opendet INFO:     Head : 
+[2025/11/14 05:10:37] opendet INFO:         k : 50
+[2025/11/14 05:10:37] opendet INFO:         name : DBHead
+[2025/11/14 05:10:37] opendet INFO:     Neck : 
+[2025/11/14 05:10:37] opendet INFO:         name : RSEFPN
+[2025/11/14 05:10:37] opendet INFO:         out_channels : 96
+[2025/11/14 05:10:37] opendet INFO:         shortcut : True
+[2025/11/14 05:10:37] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 05:10:37] opendet INFO: Eval : 
+[2025/11/14 05:10:37] opendet INFO:     dataset : 
+[2025/11/14 05:10:37] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 05:10:37] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:10:37] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:10:37] opendet INFO:         transforms : 
+[2025/11/14 05:10:37] opendet INFO:             DecodeImage : 
+[2025/11/14 05:10:37] opendet INFO:                 channel_first : False
+[2025/11/14 05:10:37] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:10:37] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:10:37] opendet INFO:             DetResizeForTest : 
+[2025/11/14 05:10:37] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 05:10:37] opendet INFO:                 limit_type : max
+[2025/11/14 05:10:37] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:10:37] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:10:37] opendet INFO:                 order : hwc
+[2025/11/14 05:10:37] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:10:37] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:10:37] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:10:37] opendet INFO:             KeepKeys : 
+[2025/11/14 05:10:37] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 05:10:37] opendet INFO:     loader : 
+[2025/11/14 05:10:37] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 05:10:37] opendet INFO:         drop_last : False
+[2025/11/14 05:10:37] opendet INFO:         num_workers : 8
+[2025/11/14 05:10:37] opendet INFO:         shuffle : False
+[2025/11/14 05:10:37] opendet INFO: Global : 
+[2025/11/14 05:10:37] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 05:10:37] opendet INFO:     checkpoints : None
+[2025/11/14 05:10:37] opendet INFO:     device : gpu
+[2025/11/14 05:10:37] opendet INFO:     distributed : False
+[2025/11/14 05:10:37] opendet INFO:     epoch_num : 1000
+[2025/11/14 05:10:37] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 05:10:37] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 05:10:37] opendet INFO:     log_smooth_window : 20
+[2025/11/14 05:10:37] opendet INFO:     model_type : det
+[2025/11/14 05:10:37] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 05:10:37] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:10:37] opendet INFO:     print_batch_step : 100
+[2025/11/14 05:10:37] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 05:10:37] opendet INFO:     save_inference_dir : None
+[2025/11/14 05:10:37] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 05:10:37] opendet INFO:     use_tensorboard : False
+[2025/11/14 05:10:37] opendet INFO: LRScheduler : 
+[2025/11/14 05:10:37] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 05:10:37] opendet INFO:     warmup_epoch : 2
+[2025/11/14 05:10:37] opendet INFO: Loss : 
+[2025/11/14 05:10:37] opendet INFO:     alpha : 5
+[2025/11/14 05:10:37] opendet INFO:     balance_loss : True
+[2025/11/14 05:10:37] opendet INFO:     beta : 10
+[2025/11/14 05:10:37] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 05:10:37] opendet INFO:     name : DBLoss
+[2025/11/14 05:10:37] opendet INFO:     ohem_ratio : 3
+[2025/11/14 05:10:37] opendet INFO: Metric : 
+[2025/11/14 05:10:37] opendet INFO:     main_indicator : hmean
+[2025/11/14 05:10:37] opendet INFO:     name : DetMetric
+[2025/11/14 05:10:37] opendet INFO: Optimizer : 
+[2025/11/14 05:10:37] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 05:10:37] opendet INFO:     lr : 0.001
+[2025/11/14 05:10:37] opendet INFO:     name : Adam
+[2025/11/14 05:10:37] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 05:10:37] opendet INFO: PostProcess : 
+[2025/11/14 05:10:37] opendet INFO:     box_thresh : 0.6
+[2025/11/14 05:10:37] opendet INFO:     max_candidates : 1000
+[2025/11/14 05:10:37] opendet INFO:     name : DBPostProcess
+[2025/11/14 05:10:37] opendet INFO:     score_mode : slow
+[2025/11/14 05:10:37] opendet INFO:     thresh : 0.5
+[2025/11/14 05:10:37] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 05:10:37] opendet INFO: Train : 
+[2025/11/14 05:10:37] opendet INFO:     dataset : 
+[2025/11/14 05:10:37] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 05:10:37] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 05:10:37] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:10:37] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 05:10:37] opendet INFO:         transforms : 
+[2025/11/14 05:10:37] opendet INFO:             DecodeImage : 
+[2025/11/14 05:10:37] opendet INFO:                 channel_first : False
+[2025/11/14 05:10:37] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:10:37] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:10:37] opendet INFO:             CopyPaste : None
+[2025/11/14 05:10:37] opendet INFO:             IaaAugment : 
+[2025/11/14 05:10:37] opendet INFO:                 augmenter_args : 
+[2025/11/14 05:10:37] opendet INFO:                     args : 
+[2025/11/14 05:10:37] opendet INFO:                         p : 0.5
+[2025/11/14 05:10:37] opendet INFO:                     type : Fliplr
+[2025/11/14 05:10:37] opendet INFO:                     args : 
+[2025/11/14 05:10:37] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 05:10:37] opendet INFO:                     type : Affine
+[2025/11/14 05:10:37] opendet INFO:                     args : 
+[2025/11/14 05:10:37] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 05:10:37] opendet INFO:                     type : Resize
+[2025/11/14 05:10:37] opendet INFO:             EastRandomCropData : 
+[2025/11/14 05:10:37] opendet INFO:                 keep_ratio : True
+[2025/11/14 05:10:37] opendet INFO:                 max_tries : 50
+[2025/11/14 05:10:37] opendet INFO:                 size : [800, 800]
+[2025/11/14 05:10:37] opendet INFO:             MakeBorderMap : 
+[2025/11/14 05:10:37] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 05:10:37] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 05:10:37] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 05:10:37] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:10:37] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 05:10:37] opendet INFO:                 min_text_size : 3
+[2025/11/14 05:10:37] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 05:10:37] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:10:37] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:10:37] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:10:37] opendet INFO:                 order : hwc
+[2025/11/14 05:10:37] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:10:37] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:10:37] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:10:37] opendet INFO:             KeepKeys : 
+[2025/11/14 05:10:37] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 05:10:37] opendet INFO:     loader : 
+[2025/11/14 05:10:37] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 05:10:37] opendet INFO:         drop_last : False
+[2025/11/14 05:10:37] opendet INFO:         num_workers : 8
+[2025/11/14 05:10:37] opendet INFO:         shuffle : True
+[2025/11/14 05:10:37] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 05:10:37] opendet INFO: filename : timm_real_repvit
+[2025/11/14 05:10:37] opendet INFO: local_rank : None
+[2025/11/14 05:10:37] opendet INFO: profiler_options : None
+[2025/11/14 05:10:37] opendet INFO: ---------------------------------------------
+[2025/11/14 05:10:37] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:10:37] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 05:10:37] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 05:10:37] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 05:10:37] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 05:10:38] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 05:10:38] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:10:38] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 05:10:38] opendet INFO: metric in ckpt ***************
+[2025/11/14 05:13:04] opendet INFO: metric eval ***************
+[2025/11/14 05:13:04] opendet INFO: precision:0.8051948051948052
+[2025/11/14 05:13:04] opendet INFO: recall:0.9323308270676691
+[2025/11/14 05:13:04] opendet INFO: hmean:0.8641114982578397
+[2025/11/14 05:13:04] opendet INFO: fps:5.076199358659986
+
+>>> Running thresh=0.5, box_thresh=0.7
+[2025/11/14 05:13:18] opendet INFO: ----------- Config -----------
+[2025/11/14 05:13:18] opendet INFO: Architecture : 
+[2025/11/14 05:13:18] opendet INFO:     Backbone : 
+[2025/11/14 05:13:18] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 05:13:18] opendet INFO:         name : TIMMWrapper
+[2025/11/14 05:13:18] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 05:13:18] opendet INFO:         pretrained : True
+[2025/11/14 05:13:18] opendet INFO:     Head : 
+[2025/11/14 05:13:18] opendet INFO:         k : 50
+[2025/11/14 05:13:18] opendet INFO:         name : DBHead
+[2025/11/14 05:13:18] opendet INFO:     Neck : 
+[2025/11/14 05:13:18] opendet INFO:         name : RSEFPN
+[2025/11/14 05:13:18] opendet INFO:         out_channels : 96
+[2025/11/14 05:13:18] opendet INFO:         shortcut : True
+[2025/11/14 05:13:18] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 05:13:18] opendet INFO: Eval : 
+[2025/11/14 05:13:18] opendet INFO:     dataset : 
+[2025/11/14 05:13:18] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 05:13:18] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:13:18] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:13:18] opendet INFO:         transforms : 
+[2025/11/14 05:13:18] opendet INFO:             DecodeImage : 
+[2025/11/14 05:13:18] opendet INFO:                 channel_first : False
+[2025/11/14 05:13:18] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:13:18] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:13:18] opendet INFO:             DetResizeForTest : 
+[2025/11/14 05:13:18] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 05:13:18] opendet INFO:                 limit_type : max
+[2025/11/14 05:13:18] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:13:18] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:13:18] opendet INFO:                 order : hwc
+[2025/11/14 05:13:18] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:13:18] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:13:18] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:13:18] opendet INFO:             KeepKeys : 
+[2025/11/14 05:13:18] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 05:13:18] opendet INFO:     loader : 
+[2025/11/14 05:13:18] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 05:13:18] opendet INFO:         drop_last : False
+[2025/11/14 05:13:18] opendet INFO:         num_workers : 8
+[2025/11/14 05:13:18] opendet INFO:         shuffle : False
+[2025/11/14 05:13:18] opendet INFO: Global : 
+[2025/11/14 05:13:18] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 05:13:18] opendet INFO:     checkpoints : None
+[2025/11/14 05:13:18] opendet INFO:     device : gpu
+[2025/11/14 05:13:18] opendet INFO:     distributed : False
+[2025/11/14 05:13:18] opendet INFO:     epoch_num : 1000
+[2025/11/14 05:13:18] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 05:13:18] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 05:13:18] opendet INFO:     log_smooth_window : 20
+[2025/11/14 05:13:18] opendet INFO:     model_type : det
+[2025/11/14 05:13:18] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 05:13:18] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:13:18] opendet INFO:     print_batch_step : 100
+[2025/11/14 05:13:18] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 05:13:18] opendet INFO:     save_inference_dir : None
+[2025/11/14 05:13:18] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 05:13:18] opendet INFO:     use_tensorboard : False
+[2025/11/14 05:13:18] opendet INFO: LRScheduler : 
+[2025/11/14 05:13:18] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 05:13:18] opendet INFO:     warmup_epoch : 2
+[2025/11/14 05:13:18] opendet INFO: Loss : 
+[2025/11/14 05:13:18] opendet INFO:     alpha : 5
+[2025/11/14 05:13:18] opendet INFO:     balance_loss : True
+[2025/11/14 05:13:18] opendet INFO:     beta : 10
+[2025/11/14 05:13:18] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 05:13:18] opendet INFO:     name : DBLoss
+[2025/11/14 05:13:18] opendet INFO:     ohem_ratio : 3
+[2025/11/14 05:13:18] opendet INFO: Metric : 
+[2025/11/14 05:13:18] opendet INFO:     main_indicator : hmean
+[2025/11/14 05:13:18] opendet INFO:     name : DetMetric
+[2025/11/14 05:13:18] opendet INFO: Optimizer : 
+[2025/11/14 05:13:18] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 05:13:18] opendet INFO:     lr : 0.001
+[2025/11/14 05:13:18] opendet INFO:     name : Adam
+[2025/11/14 05:13:18] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 05:13:18] opendet INFO: PostProcess : 
+[2025/11/14 05:13:18] opendet INFO:     box_thresh : 0.7
+[2025/11/14 05:13:18] opendet INFO:     max_candidates : 1000
+[2025/11/14 05:13:18] opendet INFO:     name : DBPostProcess
+[2025/11/14 05:13:18] opendet INFO:     score_mode : slow
+[2025/11/14 05:13:18] opendet INFO:     thresh : 0.5
+[2025/11/14 05:13:18] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 05:13:18] opendet INFO: Train : 
+[2025/11/14 05:13:18] opendet INFO:     dataset : 
+[2025/11/14 05:13:18] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 05:13:18] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 05:13:18] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:13:18] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 05:13:18] opendet INFO:         transforms : 
+[2025/11/14 05:13:18] opendet INFO:             DecodeImage : 
+[2025/11/14 05:13:18] opendet INFO:                 channel_first : False
+[2025/11/14 05:13:18] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:13:18] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:13:18] opendet INFO:             CopyPaste : None
+[2025/11/14 05:13:18] opendet INFO:             IaaAugment : 
+[2025/11/14 05:13:18] opendet INFO:                 augmenter_args : 
+[2025/11/14 05:13:18] opendet INFO:                     args : 
+[2025/11/14 05:13:18] opendet INFO:                         p : 0.5
+[2025/11/14 05:13:18] opendet INFO:                     type : Fliplr
+[2025/11/14 05:13:18] opendet INFO:                     args : 
+[2025/11/14 05:13:18] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 05:13:18] opendet INFO:                     type : Affine
+[2025/11/14 05:13:18] opendet INFO:                     args : 
+[2025/11/14 05:13:18] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 05:13:18] opendet INFO:                     type : Resize
+[2025/11/14 05:13:18] opendet INFO:             EastRandomCropData : 
+[2025/11/14 05:13:18] opendet INFO:                 keep_ratio : True
+[2025/11/14 05:13:18] opendet INFO:                 max_tries : 50
+[2025/11/14 05:13:18] opendet INFO:                 size : [800, 800]
+[2025/11/14 05:13:18] opendet INFO:             MakeBorderMap : 
+[2025/11/14 05:13:18] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 05:13:18] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 05:13:18] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 05:13:18] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:13:18] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 05:13:18] opendet INFO:                 min_text_size : 3
+[2025/11/14 05:13:18] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 05:13:18] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:13:18] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:13:18] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:13:18] opendet INFO:                 order : hwc
+[2025/11/14 05:13:18] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:13:18] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:13:18] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:13:18] opendet INFO:             KeepKeys : 
+[2025/11/14 05:13:18] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 05:13:18] opendet INFO:     loader : 
+[2025/11/14 05:13:18] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 05:13:18] opendet INFO:         drop_last : False
+[2025/11/14 05:13:18] opendet INFO:         num_workers : 8
+[2025/11/14 05:13:18] opendet INFO:         shuffle : True
+[2025/11/14 05:13:18] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 05:13:18] opendet INFO: filename : timm_real_repvit
+[2025/11/14 05:13:18] opendet INFO: local_rank : None
+[2025/11/14 05:13:18] opendet INFO: profiler_options : None
+[2025/11/14 05:13:18] opendet INFO: ---------------------------------------------
+[2025/11/14 05:13:18] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:13:18] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 05:13:18] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 05:13:18] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 05:13:18] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 05:13:19] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 05:13:19] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:13:19] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 05:13:19] opendet INFO: metric in ckpt ***************
+[2025/11/14 05:15:45] opendet INFO: metric eval ***************
+[2025/11/14 05:15:45] opendet INFO: precision:0.8051948051948052
+[2025/11/14 05:15:45] opendet INFO: recall:0.9323308270676691
+[2025/11/14 05:15:45] opendet INFO: hmean:0.8641114982578397
+[2025/11/14 05:15:45] opendet INFO: fps:5.035965469272695
+
+>>> Running thresh=0.5, box_thresh=0.8
+[2025/11/14 05:15:59] opendet INFO: ----------- Config -----------
+[2025/11/14 05:15:59] opendet INFO: Architecture : 
+[2025/11/14 05:15:59] opendet INFO:     Backbone : 
+[2025/11/14 05:15:59] opendet INFO:         model_name : repvit_m1.dist_in1k
+[2025/11/14 05:15:59] opendet INFO:         name : TIMMWrapper
+[2025/11/14 05:15:59] opendet INFO:         out_indices : [0, 1, 2, 3]
+[2025/11/14 05:15:59] opendet INFO:         pretrained : True
+[2025/11/14 05:15:59] opendet INFO:     Head : 
+[2025/11/14 05:15:59] opendet INFO:         k : 50
+[2025/11/14 05:15:59] opendet INFO:         name : DBHead
+[2025/11/14 05:15:59] opendet INFO:     Neck : 
+[2025/11/14 05:15:59] opendet INFO:         name : RSEFPN
+[2025/11/14 05:15:59] opendet INFO:         out_channels : 96
+[2025/11/14 05:15:59] opendet INFO:         shortcut : True
+[2025/11/14 05:15:59] opendet INFO:     algorithm : DB_mobile
+[2025/11/14 05:15:59] opendet INFO: Eval : 
+[2025/11/14 05:15:59] opendet INFO:     dataset : 
+[2025/11/14 05:15:59] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/evaluation/images
+[2025/11/14 05:15:59] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:15:59] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:15:59] opendet INFO:         transforms : 
+[2025/11/14 05:15:59] opendet INFO:             DecodeImage : 
+[2025/11/14 05:15:59] opendet INFO:                 channel_first : False
+[2025/11/14 05:15:59] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:15:59] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:15:59] opendet INFO:             DetResizeForTest : 
+[2025/11/14 05:15:59] opendet INFO:                 limit_side_len : 1280
+[2025/11/14 05:15:59] opendet INFO:                 limit_type : max
+[2025/11/14 05:15:59] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:15:59] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:15:59] opendet INFO:                 order : hwc
+[2025/11/14 05:15:59] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:15:59] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:15:59] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:15:59] opendet INFO:             KeepKeys : 
+[2025/11/14 05:15:59] opendet INFO:                 keep_keys : ['image', 'shape', 'polys', 'ignore_tags']
+[2025/11/14 05:15:59] opendet INFO:     loader : 
+[2025/11/14 05:15:59] opendet INFO:         batch_size_per_card : 1
+[2025/11/14 05:15:59] opendet INFO:         drop_last : False
+[2025/11/14 05:15:59] opendet INFO:         num_workers : 8
+[2025/11/14 05:15:59] opendet INFO:         shuffle : False
+[2025/11/14 05:15:59] opendet INFO: Global : 
+[2025/11/14 05:15:59] opendet INFO:     cal_metric_during_train : False
+[2025/11/14 05:15:59] opendet INFO:     checkpoints : None
+[2025/11/14 05:15:59] opendet INFO:     device : gpu
+[2025/11/14 05:15:59] opendet INFO:     distributed : False
+[2025/11/14 05:15:59] opendet INFO:     epoch_num : 1000
+[2025/11/14 05:15:59] opendet INFO:     eval_batch_step : [0, 1000]
+[2025/11/14 05:15:59] opendet INFO:     infer_img : /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
+[2025/11/14 05:15:59] opendet INFO:     log_smooth_window : 20
+[2025/11/14 05:15:59] opendet INFO:     model_type : det
+[2025/11/14 05:15:59] opendet INFO:     output_dir : ./output/det_timm_repvit_real_horizontal_800*1280
+[2025/11/14 05:15:59] opendet INFO:     pretrained_model : /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:15:59] opendet INFO:     print_batch_step : 100
+[2025/11/14 05:15:59] opendet INFO:     save_epoch_step : [400, 25]
+[2025/11/14 05:15:59] opendet INFO:     save_inference_dir : None
+[2025/11/14 05:15:59] opendet INFO:     save_res_path : ./checkpoints/det_db/predicts_db.txt
+[2025/11/14 05:15:59] opendet INFO:     use_tensorboard : False
+[2025/11/14 05:15:59] opendet INFO: LRScheduler : 
+[2025/11/14 05:15:59] opendet INFO:     name : CosineAnnealingLR
+[2025/11/14 05:15:59] opendet INFO:     warmup_epoch : 2
+[2025/11/14 05:15:59] opendet INFO: Loss : 
+[2025/11/14 05:15:59] opendet INFO:     alpha : 5
+[2025/11/14 05:15:59] opendet INFO:     balance_loss : True
+[2025/11/14 05:15:59] opendet INFO:     beta : 10
+[2025/11/14 05:15:59] opendet INFO:     main_loss_type : DiceLoss
+[2025/11/14 05:15:59] opendet INFO:     name : DBLoss
+[2025/11/14 05:15:59] opendet INFO:     ohem_ratio : 3
+[2025/11/14 05:15:59] opendet INFO: Metric : 
+[2025/11/14 05:15:59] opendet INFO:     main_indicator : hmean
+[2025/11/14 05:15:59] opendet INFO:     name : DetMetric
+[2025/11/14 05:15:59] opendet INFO: Optimizer : 
+[2025/11/14 05:15:59] opendet INFO:     filter_bias_and_bn : False
+[2025/11/14 05:15:59] opendet INFO:     lr : 0.001
+[2025/11/14 05:15:59] opendet INFO:     name : Adam
+[2025/11/14 05:15:59] opendet INFO:     weight_decay : 5e-05
+[2025/11/14 05:15:59] opendet INFO: PostProcess : 
+[2025/11/14 05:15:59] opendet INFO:     box_thresh : 0.8
+[2025/11/14 05:15:59] opendet INFO:     max_candidates : 1000
+[2025/11/14 05:15:59] opendet INFO:     name : DBPostProcess
+[2025/11/14 05:15:59] opendet INFO:     score_mode : slow
+[2025/11/14 05:15:59] opendet INFO:     thresh : 0.5
+[2025/11/14 05:15:59] opendet INFO:     unclip_ratio : 1.5
+[2025/11/14 05:15:59] opendet INFO: Train : 
+[2025/11/14 05:15:59] opendet INFO:     dataset : 
+[2025/11/14 05:15:59] opendet INFO:         data_dir : /scratch/penghao/datasets/Products-Real/train/images
+[2025/11/14 05:15:59] opendet INFO:         label_file_list : ['/scratch/penghao/datasets/Products-Real/train/labels.txt']
+[2025/11/14 05:15:59] opendet INFO:         name : SimpleDataSet
+[2025/11/14 05:15:59] opendet INFO:         ratio_list : [1.0]
+[2025/11/14 05:15:59] opendet INFO:         transforms : 
+[2025/11/14 05:15:59] opendet INFO:             DecodeImage : 
+[2025/11/14 05:15:59] opendet INFO:                 channel_first : False
+[2025/11/14 05:15:59] opendet INFO:                 img_mode : BGR
+[2025/11/14 05:15:59] opendet INFO:             DetLabelEncode : None
+[2025/11/14 05:15:59] opendet INFO:             CopyPaste : None
+[2025/11/14 05:15:59] opendet INFO:             IaaAugment : 
+[2025/11/14 05:15:59] opendet INFO:                 augmenter_args : 
+[2025/11/14 05:15:59] opendet INFO:                     args : 
+[2025/11/14 05:15:59] opendet INFO:                         p : 0.5
+[2025/11/14 05:15:59] opendet INFO:                     type : Fliplr
+[2025/11/14 05:15:59] opendet INFO:                     args : 
+[2025/11/14 05:15:59] opendet INFO:                         rotate : [-180, 180]
+[2025/11/14 05:15:59] opendet INFO:                     type : Affine
+[2025/11/14 05:15:59] opendet INFO:                     args : 
+[2025/11/14 05:15:59] opendet INFO:                         size : [0.5, 3]
+[2025/11/14 05:15:59] opendet INFO:                     type : Resize
+[2025/11/14 05:15:59] opendet INFO:             EastRandomCropData : 
+[2025/11/14 05:15:59] opendet INFO:                 keep_ratio : True
+[2025/11/14 05:15:59] opendet INFO:                 max_tries : 50
+[2025/11/14 05:15:59] opendet INFO:                 size : [800, 800]
+[2025/11/14 05:15:59] opendet INFO:             MakeBorderMap : 
+[2025/11/14 05:15:59] opendet INFO:                 shrink_ratio : 0.4
+[2025/11/14 05:15:59] opendet INFO:                 thresh_max : 0.7
+[2025/11/14 05:15:59] opendet INFO:                 thresh_min : 0.3
+[2025/11/14 05:15:59] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:15:59] opendet INFO:             MakeShrinkMap : 
+[2025/11/14 05:15:59] opendet INFO:                 min_text_size : 3
+[2025/11/14 05:15:59] opendet INFO:                 shrink_ratio : 0.35
+[2025/11/14 05:15:59] opendet INFO:                 total_epoch : 1000
+[2025/11/14 05:15:59] opendet INFO:             NormalizeImage : 
+[2025/11/14 05:15:59] opendet INFO:                 mean : [0.485, 0.456, 0.406]
+[2025/11/14 05:15:59] opendet INFO:                 order : hwc
+[2025/11/14 05:15:59] opendet INFO:                 scale : 1./255.
+[2025/11/14 05:15:59] opendet INFO:                 std : [0.229, 0.224, 0.225]
+[2025/11/14 05:15:59] opendet INFO:             ToCHWImage : None
+[2025/11/14 05:15:59] opendet INFO:             KeepKeys : 
+[2025/11/14 05:15:59] opendet INFO:                 keep_keys : ['image', 'threshold_map', 'threshold_mask', 'shrink_map', 'shrink_mask']
+[2025/11/14 05:15:59] opendet INFO:     loader : 
+[2025/11/14 05:15:59] opendet INFO:         batch_size_per_card : 28
+[2025/11/14 05:15:59] opendet INFO:         drop_last : False
+[2025/11/14 05:15:59] opendet INFO:         num_workers : 8
+[2025/11/14 05:15:59] opendet INFO:         shuffle : True
+[2025/11/14 05:15:59] opendet INFO: config : /scratch/penghao/OpenOCR/configs/det/dbnet/timm_real_repvit.yml
+[2025/11/14 05:15:59] opendet INFO: filename : timm_real_repvit
+[2025/11/14 05:15:59] opendet INFO: local_rank : None
+[2025/11/14 05:15:59] opendet INFO: profiler_options : None
+[2025/11/14 05:15:59] opendet INFO: ---------------------------------------------
+[2025/11/14 05:15:59] opendet INFO: Initialize indexs of datasets: ['/scratch/penghao/datasets/Products-Real/evaluation/labels.txt']
+[2025/11/14 05:15:59] opendet INFO: valid dataloader has 665 iters
+[2025/11/14 05:15:59] openrec INFO: [TIMMWrapper] Creating model='repvit_m1.dist_in1k', pretrained=True, in_chans=3, out_indices=(0, 1, 2, 3)
+[2025/11/14 05:16:00] openrec INFO: [TIMMWrapper] out_channels = [48, 96, 192, 384]
+[2025/11/14 05:16:00] opendet INFO: {'Total': 4932474, 'Trainable': 4932474}
+[Model Complexity] FLOPs: 18.872 GFLOPs | Params: 4.932 M
+[2025/11/14 05:16:01] opendet INFO: (18.871821288, 4.932474)
+[2025/11/14 05:16:01] openrec INFO: finetune from checkpoint /scratch/penghao/OpenOCR/output/det_timm_repvit_real_horizontal_800*1280/best.pth
+[2025/11/14 05:16:01] opendet INFO: run with torch 2.9.0+cu128 and device cuda:0
+[2025/11/14 05:16:01] opendet INFO: metric in ckpt ***************
+[2025/11/14 05:18:26] opendet INFO: metric eval ***************
+[2025/11/14 05:18:26] opendet INFO: precision:0.8051948051948052
+[2025/11/14 05:18:26] opendet INFO: recall:0.9323308270676691
+[2025/11/14 05:18:26] opendet INFO: hmean:0.8641114982578397
+[2025/11/14 05:18:26] opendet INFO: fps:5.053169237746386

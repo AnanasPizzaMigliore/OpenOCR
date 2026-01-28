@@ -1,33 +1,40 @@
 import os
 import sys
+import torch
+import pnnx
 
 __dir__ = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(__dir__)
 sys.path.insert(0, os.path.abspath(os.path.join(__dir__, '..')))
-
-import torch
 
 from tools.engine.config import Config
 from tools.utility import ArgsParser
 from tools.utils.logging import get_logger
 
 
-def to_onnx(model, dummy_input, dynamic_axes, sava_path='model.onnx'):
-    input_axis_name = ['batch_size', 'channel', 'in_width', 'int_height']
-    output_axis_name = ['batch_size', 'channel', 'out_width', 'out_height']
-    torch.onnx.export(
-        model.to('cpu'),
-        dummy_input,
-        sava_path,
-        input_names=['input'],
-        output_names=['output'],  # the model's output names
-        dynamic_axes={
-            'input': {axis: input_axis_name[axis]
-                      for axis in dynamic_axes},
-            'output': {axis: output_axis_name[axis]
-                       for axis in dynamic_axes},
-        },
-    )
+def to_torchscript(model, dummy_input, save_path='model.pt'):
+    """
+    Convert a PyTorch model to TorchScript and save it.
+    Args:
+        model: The PyTorch model instance
+        dummy_input: A tensor with the same shape as model input
+        save_path: Path to save the .pt file
+        method: 'trace' (default) or 'script'
+    """
+    model = model.to('cpu').eval()
+    opt_model = pnnx.export(model, save_path, dummy_input)
+    print(f"✅ TorchScript model saved to {save_path}")
+
+class ExportWrapper(torch.nn.Module):
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+
+    def forward(self, x):
+        out = self.model(x)
+        if isinstance(out, dict):
+            return list(out.values())[0]
+        return out
 
 
 def main(cfg):
@@ -39,32 +46,31 @@ def main(cfg):
 
     if _cfg['Architecture']['algorithm'] == 'SVTRv2_mobile':
         from tools.infer_rec import OpenRecognizer
-        model = OpenRecognizer(_cfg).model.eval().to('cpu')
-        dynamic_axes = [0, 3]
-        torch.manual_seed(0)
+        model = OpenRecognizer(_cfg).model
         dummy_input = torch.randn([1, 3, 48, 320], device='cpu')
-        output = model(dummy_input)
-        print(f'model output {output}')
         if not export_dir:
             export_dir = os.path.join(
                 global_config.get('output_dir', 'output'), 'export_rec')
-        save_path = os.path.join(export_dir, 'rec_model.onnx')
-    if _cfg['Architecture']['algorithm'] == 'DB_mobile':
+        save_path = os.path.join(export_dir, 'rec_model.pt')
+
+    elif _cfg['Architecture']['algorithm'] == 'DB_mobile':
         from tools.infer_det import OpenDetector
         model = OpenDetector(_cfg).model
-        dynamic_axes = [0, 2, 3]
-        torch.manual_seed(0)
         dummy_input = torch.randn([1, 3, 960, 960], device='cpu')
-        output = model(dummy_input)
-        print(f'model output {output}')
         if not export_dir:
             export_dir = os.path.join(
                 global_config.get('output_dir', 'output'), 'export_det')
-        save_path = os.path.join(export_dir, 'det_model.onnx')
+        save_path = os.path.join(export_dir, 'det_model.pt')
+        model = ExportWrapper(model).eval().cpu()
+
+    else:
+        raise ValueError(
+            f"Unsupported algorithm: {_cfg['Architecture']['algorithm']}"
+        )
 
     os.makedirs(export_dir, exist_ok=True)
-    to_onnx(model, dummy_input, dynamic_axes, save_path)
-    logger.info(f'finish export model to {save_path}')
+    to_torchscript(model, dummy_input, save_path)
+    logger.info(f'✅ Finished exporting TorchScript model to {save_path}')
 
 
 def parse_args():

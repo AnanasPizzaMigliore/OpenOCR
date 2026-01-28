@@ -4,6 +4,8 @@ import random
 import time
 
 import numpy as np
+from ptflops import get_model_complexity_info
+
 from tqdm import tqdm
 
 import torch
@@ -22,6 +24,31 @@ def get_parameter_number(model):
     trainable_num = sum(p.numel() for p in model.parameters()
                         if p.requires_grad)
     return {'Total': total_num, 'Trainable': trainable_num}
+
+def compute_flops(model, input_size=(3, 960, 960)):
+    """
+    Compute FLOPs and parameters using ptflops for the current model.
+    Args:
+        input_size: tuple (C, H, W) — match your OCR model input.
+    """
+    model.eval()
+    try:
+        flops, params = get_model_complexity_info(
+            model,
+            input_res=input_size,
+            as_strings=False,
+            print_per_layer_stat=False,
+            verbose=False,
+        )
+        flops_g = flops / 1e9
+        params_m = params / 1e6
+        print(
+            f"[Model Complexity] FLOPs: {flops_g:.3f} GFLOPs | Params: {params_m:.3f} M"
+        )
+        return flops_g, params_m
+    except Exception as e:
+        print(f"⚠️ FLOPs computation failed: {e}")
+        return None, None
 
 
 class Trainer(object):
@@ -100,6 +127,8 @@ class Trainer(object):
             raise NotImplementedError
 
         self.logger.info(get_parameter_number(model=self.model))
+        self.logger.info(compute_flops(model=self.model))
+ 
         self.model = self.model.to(self.device)
 
         use_sync_bn = self.cfg['Global'].get('use_sync_bn', False)

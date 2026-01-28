@@ -1,16 +1,16 @@
 Global:
   device: gpu
-  epoch_num: &epoch_num 1000
+  epoch_num: &epoch_num 100
   log_smooth_window: 20
   print_batch_step: 100
-  output_dir: ./output/det_repsvtr_horizontal_800*1280
+  output_dir: ./output/det_timm_pvt_syn
   save_epoch_step: [400, 25]
   eval_batch_step:
   - 0
   - 1000
   cal_metric_during_train: false
   checkpoints:
-  pretrained_model: /scratch/penghao/OpenOCR/output/det_repsvtr_db/best.pth
+  pretrained_model: 
   save_inference_dir: null
   use_tensorboard: false
   infer_img: /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
@@ -21,7 +21,10 @@ Global:
 Architecture:
   algorithm: DB_mobile
   Backbone:
-    name: RepSVTR_det
+    name: TIMMWrapper
+    model_name:  pvt_v2_b2.in1k
+    pretrained: True
+    out_indices: [0, 1, 2, 3]   # <= was [1,2,3,4]
   Neck:
     name: RSEFPN
     out_channels: 96
@@ -63,9 +66,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: /scratch/penghao/datasets/Products-Real/train/images
+    data_dir: /scratch/penghao/datasets/Products-Synth-Rotated/images
     label_file_list:
-      - /scratch/penghao/datasets/Products-Real/train/labels.txt
+      - /scratch/penghao/datasets/Products-Synth-Rotated/labels.txt
     ratio_list: [1.0]
     transforms:
     - DecodeImage:
@@ -81,8 +84,8 @@ Train:
         - type: Affine
           args:
             rotate:
-            - -180
-            - 180
+            - -10
+            - 10
         - type: Resize
           args:
             size:
@@ -90,8 +93,8 @@ Train:
             - 3
     - EastRandomCropData:
         size:
-        - 800
-        - 800
+        - 640
+        - 640
         max_tries: 50
         keep_ratio: true
     - MakeBorderMap:
@@ -125,15 +128,15 @@ Train:
   loader:
     shuffle: true
     drop_last: false
-    batch_size_per_card: 28
+    batch_size_per_card: 20
     num_workers: 8
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /scratch/penghao/datasets/Products-Real/evaluation/images
+    data_dir: /scratch/penghao/datasets/Products-Real-Rotated/evaluation/images
     label_file_list:
-      - /scratch/penghao/datasets/Products-Real/evaluation/labels.txt
+      - /scratch/penghao/datasets/Products-Real-Rotated/evaluation/labels.txt
     transforms:
     - DecodeImage:
         img_mode: BGR
@@ -143,7 +146,7 @@ Eval:
         # image_shape: [1280, 1280]
         # keep_ratio: True
         # padding: True
-        limit_side_len: 1280
+        limit_side_len: 960
         limit_type: max
     - NormalizeImage:
         scale: 1./255.

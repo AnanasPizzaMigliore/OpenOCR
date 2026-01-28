@@ -28,6 +28,15 @@ class DetMetric(object):
         self.main_indicator = main_indicator
         self.reset()
 
+    def filter_small_boxes(self, polygons):
+        import numpy as np, cv2
+        filtered = []
+        for poly in polygons:
+            pts = np.array(poly, dtype=np.int32).reshape(-1, 2)
+            if cv2.contourArea(pts) >= 1000:
+                filtered.append(poly)
+        return filtered
+
     def __call__(self, preds, batch, **kwargs):
         """
         batch: a list produced by dataloaders.
@@ -48,11 +57,12 @@ class DetMetric(object):
                 'text': '',
                 'ignore': ignore_tag
             } for gt_polyon, ignore_tag in zip(gt_polyons, ignore_tags)]
+            det_polygons = self.filter_small_boxes(pred['points'])
             # prepare det
             det_info_list = [{
                 'points': det_polyon,
                 'text': ''
-            } for det_polyon in pred['points']]
+            } for det_polyon in det_polygons]
             result = self.evaluator.evaluate_image(gt_info_list, det_info_list)
             self.results.append(result)
 

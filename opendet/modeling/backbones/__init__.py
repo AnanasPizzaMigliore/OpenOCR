@@ -1,14 +1,19 @@
 __all__ = ['build_backbone']
 
-
 def build_backbone(config):
-    # det backbone
     from .repvit import RepSVTR_det
+    from .timm_wrapper import TIMMWrapper
 
-    support_dict = ['RepSVTR_det']
+    registry = {
+        'RepSVTR_det': RepSVTR_det,
+        'TIMMWrapper': TIMMWrapper,
+    }
 
-    module_name = config.pop('name')
-    assert module_name in support_dict, Exception(
-        'head only support {}'.format(support_dict))
-    module_class = eval(module_name)(**config)
-    return module_class
+    name = config.pop('name')
+    if name not in registry:
+        raise ValueError(f"[Backbone] Unsupported backbone '{name}'. "
+                         f"Available options: {list(registry.keys())}")
+
+    cls = registry[name]
+    backbone = cls(**config)
+    return backbone

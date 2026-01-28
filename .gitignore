@@ -3,7 +3,7 @@ __pycache__/
 .ipynb_checkpoints/
 *.py[cod]
 *$py.class
-
+*.pth
 # C extensions
 *.so
 
@@ -37,3 +37,11 @@ test_tipc/web/models/
 test_tipc/web/node_modules/
 ppocr/
 .idea/
+output_inference/
+*.pte
+*.pt
+*.onnx
+*.pth
+output/
+det_results/
+rec_results/
