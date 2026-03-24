@@ -1,0 +1,826 @@
+=== FULL MODEL STRUCTURE ===
+BaseRecognizer(
+  (encoder): RepViT(
+    (features): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(3, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (1): GELU(approximate='none')
+        (2): Conv2d(48, 96, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      )
+      (1): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+          (1): SEModule(
+            (fc1): Conv2d(96, 24, kernel_size=(1, 1), stride=(1, 1))
+            (act): ReLU()
+            (fc2): Conv2d(24, 96, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(96, 192, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (2-3): 2 x RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+          (1): Identity()
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(96, 192, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (4): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(96, 96, kernel_size=(3, 3), stride=(2, 1), padding=(1, 1), groups=96)
+          (1): Identity()
+          (2): Conv2d(96, 192, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(384, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (5): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+          (1): SEModule(
+            (fc1): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1))
+            (act): ReLU()
+            (fc2): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(384, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (6): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+          (1): Identity()
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(384, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (7): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+          (1): SEModule(
+            (fc1): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1))
+            (act): ReLU()
+            (fc2): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(384, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (8): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+          (1): Identity()
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(384, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (9): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+          (1): SEModule(
+            (fc1): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1))
+            (act): ReLU()
+            (fc2): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(384, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (10): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+          (1): Identity()
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(384, 192, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (11): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 1), padding=(1, 1), groups=192)
+          (1): Identity()
+          (2): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(384, 768, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(768, 384, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (12): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384)
+          (1): SEModule(
+            (fc1): Conv2d(384, 96, kernel_size=(1, 1), stride=(1, 1))
+            (act): ReLU()
+            (fc2): Conv2d(96, 384, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(384, 768, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(768, 384, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+      (13): RepViTBlock(
+        (token_mixer): Sequential(
+          (0): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384)
+          (1): Identity()
+        )
+        (channel_mixer): Residual(
+          (m): Sequential(
+            (0): Conv2d(384, 768, kernel_size=(1, 1), stride=(1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv2d(768, 384, kernel_size=(1, 1), stride=(1, 1))
+          )
+        )
+      )
+    )
+  )
+  (decoder): CTCDecoder(
+    (svtr_encoder): EncoderWithSVTR(
+      (conv1): ConvBNLayer(
+        (conv): Conv2d(384, 48, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1), bias=False)
+        (norm): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): Swish()
+      )
+      (conv2): ConvBNLayer(
+        (conv): Conv2d(48, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): Swish()
+      )
+      (svtr_block): ModuleList(
+        (0-1): 2 x Block(
+          (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (mixer): Attention(
+            (qkv): Linear(in_features=256, out_features=768, bias=True)
+            (attn_drop): Dropout(p=0.1, inplace=False)
+            (proj): Linear(in_features=256, out_features=256, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+          )
+          (drop_path): Identity()
+          (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=256, out_features=512, bias=True)
+            (act): Swish()
+            (fc2): Linear(in_features=512, out_features=256, bias=True)
+            (drop): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (norm): LayerNorm((256,), eps=1e-06, elementwise_affine=True)
+      (conv3): ConvBNLayer(
+        (conv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): Swish()
+      )
+      (conv4): ConvBNLayer(
+        (conv): Conv2d(768, 48, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1), bias=False)
+        (norm): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): Swish()
+      )
+      (conv1x1): ConvBNLayer(
+        (conv): Conv2d(48, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): Swish()
+      )
+    )
+    (fc): Linear(in_features=256, out_features=6625, bias=True)
+  )
+)
+
+==============================
+
+=== DETAILED LAYER ANALYSIS ===
+Layer Name: 
+Type: BaseRecognizer
+--------------------
+Layer Name: encoder
+Type: RepViT
+--------------------
+Layer Name: encoder.features
+Type: ModuleList
+--------------------
+Layer Name: encoder.features.0
+Type: Sequential
+--------------------
+Layer Name: encoder.features.0.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.0.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.0.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.1
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.1.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.1.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.1.token_mixer.1
+Type: SEModule
+--------------------
+Layer Name: encoder.features.1.token_mixer.1.fc1
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.1.token_mixer.1.act
+Type: ReLU
+--------------------
+Layer Name: encoder.features.1.token_mixer.1.fc2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.1.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.1.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.1.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.1.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.1.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.2
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.2.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.2.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.2.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.2.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.2.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.2.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.2.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.2.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.3
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.3.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.3.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.3.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.3.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.3.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.3.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.3.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.3.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.4
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.4.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.4.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.4.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.4.token_mixer.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.4.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.4.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.4.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.4.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.4.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.5
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.5.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.5.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.5.token_mixer.1
+Type: SEModule
+--------------------
+Layer Name: encoder.features.5.token_mixer.1.fc1
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.5.token_mixer.1.act
+Type: ReLU
+--------------------
+Layer Name: encoder.features.5.token_mixer.1.fc2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.5.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.5.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.5.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.5.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.5.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.6
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.6.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.6.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.6.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.6.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.6.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.6.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.6.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.6.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.7
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.7.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.7.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.7.token_mixer.1
+Type: SEModule
+--------------------
+Layer Name: encoder.features.7.token_mixer.1.fc1
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.7.token_mixer.1.act
+Type: ReLU
+--------------------
+Layer Name: encoder.features.7.token_mixer.1.fc2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.7.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.7.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.7.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.7.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.7.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.8
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.8.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.8.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.8.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.8.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.8.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.8.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.8.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.8.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.9
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.9.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.9.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.9.token_mixer.1
+Type: SEModule
+--------------------
+Layer Name: encoder.features.9.token_mixer.1.fc1
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.9.token_mixer.1.act
+Type: ReLU
+--------------------
+Layer Name: encoder.features.9.token_mixer.1.fc2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.9.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.9.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.9.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.9.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.9.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.10
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.10.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.10.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.10.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.10.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.10.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.10.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.10.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.10.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.11
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.11.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.11.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.11.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.11.token_mixer.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.11.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.11.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.11.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.11.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.11.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.12
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.12.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.12.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.12.token_mixer.1
+Type: SEModule
+--------------------
+Layer Name: encoder.features.12.token_mixer.1.fc1
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.12.token_mixer.1.act
+Type: ReLU
+--------------------
+Layer Name: encoder.features.12.token_mixer.1.fc2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.12.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.12.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.12.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.12.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.12.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.13
+Type: RepViTBlock
+--------------------
+Layer Name: encoder.features.13.token_mixer
+Type: Sequential
+--------------------
+Layer Name: encoder.features.13.token_mixer.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.13.token_mixer.1
+Type: Identity
+--------------------
+Layer Name: encoder.features.13.channel_mixer
+Type: Residual
+--------------------
+Layer Name: encoder.features.13.channel_mixer.m
+Type: Sequential
+--------------------
+Layer Name: encoder.features.13.channel_mixer.m.0
+Type: Conv2d
+--------------------
+Layer Name: encoder.features.13.channel_mixer.m.1
+Type: GELU
+--------------------
+Layer Name: encoder.features.13.channel_mixer.m.2
+Type: Conv2d
+--------------------
+Layer Name: decoder
+Type: CTCDecoder
+--------------------
+Layer Name: decoder.svtr_encoder
+Type: EncoderWithSVTR
+--------------------
+Layer Name: decoder.svtr_encoder.conv1
+Type: ConvBNLayer
+--------------------
+Layer Name: decoder.svtr_encoder.conv1.conv
+Type: Conv2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv1.norm
+Type: BatchNorm2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv1.act
+Type: Swish
+--------------------
+Layer Name: decoder.svtr_encoder.conv2
+Type: ConvBNLayer
+--------------------
+Layer Name: decoder.svtr_encoder.conv2.conv
+Type: Conv2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv2.norm
+Type: BatchNorm2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv2.act
+Type: Swish
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block
+Type: ModuleList
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0
+Type: Block
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.norm1
+Type: LayerNorm
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mixer
+Type: Attention
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mixer.qkv
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mixer.attn_drop
+Type: Dropout
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mixer.proj
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mixer.proj_drop
+Type: Dropout
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.drop_path
+Type: Identity
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.norm2
+Type: LayerNorm
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mlp
+Type: Mlp
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mlp.fc1
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mlp.act
+Type: Swish
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mlp.fc2
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.0.mlp.drop
+Type: Dropout
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1
+Type: Block
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.norm1
+Type: LayerNorm
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mixer
+Type: Attention
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mixer.qkv
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mixer.attn_drop
+Type: Dropout
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mixer.proj
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mixer.proj_drop
+Type: Dropout
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.drop_path
+Type: Identity
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.norm2
+Type: LayerNorm
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mlp
+Type: Mlp
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mlp.fc1
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mlp.act
+Type: Swish
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mlp.fc2
+Type: Linear
+--------------------
+Layer Name: decoder.svtr_encoder.svtr_block.1.mlp.drop
+Type: Dropout
+--------------------
+Layer Name: decoder.svtr_encoder.norm
+Type: LayerNorm
+--------------------
+Layer Name: decoder.svtr_encoder.conv3
+Type: ConvBNLayer
+--------------------
+Layer Name: decoder.svtr_encoder.conv3.conv
+Type: Conv2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv3.norm
+Type: BatchNorm2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv3.act
+Type: Swish
+--------------------
+Layer Name: decoder.svtr_encoder.conv4
+Type: ConvBNLayer
+--------------------
+Layer Name: decoder.svtr_encoder.conv4.conv
+Type: Conv2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv4.norm
+Type: BatchNorm2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv4.act
+Type: Swish
+--------------------
+Layer Name: decoder.svtr_encoder.conv1x1
+Type: ConvBNLayer
+--------------------
+Layer Name: decoder.svtr_encoder.conv1x1.conv
+Type: Conv2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv1x1.norm
+Type: BatchNorm2d
+--------------------
+Layer Name: decoder.svtr_encoder.conv1x1.act
+Type: Swish
+--------------------
+Layer Name: decoder.fc
+Type: Linear
+--------------------

@@ -14,8 +14,8 @@ import logging
 from executorch.backends.xnnpack.partition.config.xnnpack_config import ConfigPrecisionType
 
 # Standard Imports
-#from executorch.backends.vulkan.partitioner.vulkan_partitioner import VulkanPartitioner
-from executorch.backends.xnnpack.partition.xnnpack_partitioner import XnnpackPartitioner
+from executorch.backends.vulkan.partitioner.vulkan_partitioner import VulkanPartitioner
+#from executorch.backends.xnnpack.partition.xnnpack_partitioner import XnnpackPartitioner
 from executorch.exir import to_edge_transform_and_lower
 #from executorch.backends.vulkan.test.utils import run_and_check_output
 
@@ -44,7 +44,7 @@ def to_torchscript(model, dummy_input, save_path='model.pte', method='trace'):
 
     edge_program = to_edge_transform_and_lower(
         exported_program,
-        partitioner=[XnnpackPartitioner()],
+        partitioner=[VulkanPartitioner()],
     )
 
     exec_prog = edge_program.to_executorch()
@@ -115,6 +115,32 @@ def to_torchscript(model, dummy_input, save_path='model.pte', method='trace'):
     else:
         print("❌ Verification FAILED (Values mismatch)")
 
+def save_model_layers_to_txt(model, filename="model_layers.txt"):
+    with open(filename, "w") as f:
+        # 1. Write the standard visual representation
+        f.write("=== FULL MODEL STRUCTURE ===\n")
+        f.write(str(model))
+        f.write("\n\n" + "="*30 + "\n\n")
+
+        # 2. Write a detailed breakdown (Good for debugging specific params)
+        f.write("=== DETAILED LAYER ANALYSIS ===\n")
+        for name, layer in model.named_modules():
+            f.write(f"Layer Name: {name}\n")
+            f.write(f"Type: {layer.__class__.__name__}\n")
+            
+            # Special check for pooling layers (relevant to your bug)
+            if isinstance(layer, (torch.nn.AvgPool2d, torch.nn.AdaptiveAvgPool2d)):
+                if hasattr(layer, 'kernel_size'):
+                    f.write(f"  -> Kernel Size: {layer.kernel_size} (Type: {type(layer.kernel_size)})\n")
+                if hasattr(layer, 'stride'):
+                    f.write(f"  -> Stride: {layer.stride}\n")
+                if hasattr(layer, 'padding'):
+                    f.write(f"  -> Padding: {layer.padding}\n")
+            
+            f.write("-" * 20 + "\n")
+
+    print(f"✅ Model architecture saved to {filename}")
+
 
 def main(cfg):
     _cfg = cfg.cfg
@@ -126,11 +152,14 @@ def main(cfg):
     if _cfg['Architecture']['algorithm'] == 'SVTRv2_mobile':
         from tools.infer_rec import OpenRecognizer
         model = OpenRecognizer(_cfg).model
+        print("⏳ Saving model architecture to text file for debugging...")
+        
         dummy_input = torch.randn([1, 3, 48, 320], device='cpu')
         if not export_dir:
             export_dir = os.path.join(
                 global_config.get('output_dir', 'output'), 'export_rec')
-        save_path = os.path.join(export_dir, 'SVTRv2_cpu_fp32.pte')
+        save_model_layers_to_txt(model, filename=os.path.join(export_dir, "RepSvtr_layers.txt"))
+        save_path = os.path.join(export_dir, 'RepSvtr_gpu2_fp32.pte')
 
     elif _cfg['Architecture']['algorithm'] == 'DB_mobile':
         from tools.infer_det import OpenDetector
